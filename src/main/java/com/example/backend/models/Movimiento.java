@@ -39,11 +39,11 @@ public class Movimiento implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "fecha_movimiento", nullable = false)
+    @Column(nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fecha;
 
-    @Column(name = "observacion_movimiento", nullable = true, length = 150)
+    @Column(nullable = true, length = 150)
     private String observacion;
 
     @NotNull

@@ -60,6 +60,9 @@ public class Producto implements Serializable {
 
 	public Producto() {
 	}
+	public Integer getFotoHashCode(){
+        return (this.foto!=null)? this.foto.hashCode():null;
+    }
 
 	public Long getId() {
 		return id;
