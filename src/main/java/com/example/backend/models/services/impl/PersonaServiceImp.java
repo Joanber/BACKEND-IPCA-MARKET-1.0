@@ -11,6 +11,7 @@ import com.example.backend.models.services.PersonaService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -23,23 +24,33 @@ public class PersonaServiceImp implements PersonaService{
     private PersonaRepository personaRepository;
 
     @Override
+    @Transactional(readOnly = true)
     public List<Persona> findAll() {
-        return personaRepository.findAll();
+        return personaRepository.findAllByOrderByIdAsc();
     }
 
     @Override
+    @Transactional
     public Persona save(Persona persona) {
         return personaRepository.save(persona);
     }
 
     @Override
+    @Transactional
     public void delete(Long id) {
         personaRepository.deleteById(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Persona findById(Long id) {
         return personaRepository.findById(id).orElse(null);
     }
+
+	@Override
+	@Transactional(readOnly = true)
+	public List<Persona> findAllByOrderByIdAsc() {
+		return personaRepository.findAllByOrderByIdAsc();
+	}
     
 }

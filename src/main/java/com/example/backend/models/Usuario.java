@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -24,82 +25,93 @@ import javax.persistence.ManyToOne;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-
 /**
  *
  * @author Andy
  */
 @Entity
 @Table(name = "usuarios")
-public class Usuario implements Serializable{
-     private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Usuario implements Serializable {
+	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(unique = true,nullable = false, length = 30)
-    private String username;
+	@Column(unique = true, nullable = false, length = 30)
+	private String username;
 
-    @Column(nullable = false, length = 60)
-    private String password;
-    
-    @Column(name = "activo")
-    private boolean activo;
-    
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "usuarios_roles", joinColumns = @JoinColumn(name="usuario_id")
-    ,inverseJoinColumns = @JoinColumn(name="rol_id")
-    ,uniqueConstraints = {@UniqueConstraint(columnNames = {"usuario_id","rol_id"})})
-    public List<Rol> roles;
-    
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
-    private Persona persona;
+	@Column(nullable = false, length = 60)
+	private String password;
 
-    public Usuario() {
-    }
+	@Column(name = "activo")
+	private boolean activo;
 
-    public Long getId() {
-        return id;
-    }
+	@ManyToMany(fetch = FetchType.LAZY,cascade =
+        {
+                CascadeType.DETACH,
+                CascadeType.MERGE,
+                CascadeType.REFRESH,
+                CascadeType.PERSIST
+        })
+	@JoinTable(name = "usuarios_roles", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "rol_id"), uniqueConstraints = {
+			@UniqueConstraint(columnNames = { "usuario_id", "rol_id" }) })
+	public List<Rol> roles;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@NotNull
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+	private Persona persona;
 
-    public String getUsername() {
-        return username;
-    }
+	public Usuario() {
+		roles=new ArrayList<>();
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public Persona getPersona() {
+		return persona;
+	}
 
-    public boolean isActivo() {
-        return activo;
-    }
+	public void setPersona(Persona persona) {
+		this.persona = persona;
+	}
 
-    public void setActivo(boolean activo) {
-        this.activo = activo;
-    }
+	public String getUsername() {
+		return username;
+	}
 
-    public List<Rol> getRoles() {
-        return roles;
-    }
+	public void setUsername(String username) {
+		this.username = username;
+	}
 
-    public void setRoles(List<Rol> roles) {
-        this.roles = roles;
-    }
-    
-    
-    
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public boolean isActivo() {
+		return activo;
+	}
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
+
+	public List<Rol> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Rol> roles) {
+		this.roles = roles;
+	}
+
 }

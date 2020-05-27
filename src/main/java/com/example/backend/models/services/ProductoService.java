@@ -13,5 +13,9 @@ public interface ProductoService {
 	public void delete(Long id);
 
 	public Producto findById(Long id);
+	
+	public List<Producto> findAllByOrderByIdAsc();
+
+  
 
 }

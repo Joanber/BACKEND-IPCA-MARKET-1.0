@@ -16,5 +16,12 @@ INSERT INTO productos(codigo_barras,nombre,descripcion,precio,cantidad_maxima,ca
 INSERT INTO productos(codigo_barras,nombre,descripcion,precio,cantidad_maxima,cantidad_minima,categoria_id) VALUES('123456782','Papas Ruffles Picante 44 GR','Papas Ruffles Picantes de 44 Gramos a 50  centavos',0.50,20,5,1);
 INSERT INTO productos(codigo_barras,nombre,descripcion,precio,cantidad_maxima,cantidad_minima,categoria_id) VALUES('123456783','Galleta Amor Chocolate 100 GR','Galleta Amor Pequeña de Chocolate a un dolar',1.00,20,5,3);
 
+INSERT INTO usuarios(activo,username,password,persona_id) VALUES (true,'ipca','12345',1);
+INSERT INTO usuarios(activo,username,password,persona_id) VALUES (true,'andres','12345',2);
+
+INSERT INTO usuarios_roles(usuario_id,rol_id) VALUES (2,1);
+INSERT INTO usuarios_roles(usuario_id,rol_id) VALUES (2,2);
+INSERT INTO usuarios_roles(usuario_id,rol_id) VALUES (1,1);
+
 
 	       

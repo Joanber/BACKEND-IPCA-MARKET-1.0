@@ -21,5 +21,7 @@ public interface PersonaService {
     public void delete(Long id);
     
     public Persona findById(Long id);
+    
+    public List<Persona> findAllByOrderByIdAsc();
 
 }
