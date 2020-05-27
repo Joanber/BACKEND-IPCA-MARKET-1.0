@@ -86,6 +86,11 @@ public class ProductoController {
 	public List<Producto> getProductos() {
 		return productoService.findAll();
 	}
+	@GetMapping("/categoria/{nombre}")
+	public List<Producto> getProductosByCategoria(@PathVariable String nombre) {
+		return productoService.findProductoByCategoriaNombre(nombre);
+	}
+	
 
 	@PutMapping("/{id}")
 	public ResponseEntity<?> update(@Valid @RequestBody Producto producto, BindingResult result,

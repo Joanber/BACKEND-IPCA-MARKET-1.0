@@ -4,6 +4,7 @@ package com.example.backend.models.repositories;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 
@@ -13,6 +14,9 @@ import com.example.backend.models.Producto;
 public interface ProductoRepository extends JpaRepository<Producto, Long> {
 	
 	public List<Producto> findAllByOrderByIdAsc();
+	
+	@Query("select p from Producto p join fetch p.categoria c where c.nombre=?1 order by p.id")
+	public List<Producto> findProductoByCategoriaNombre(String nombre);
 	
 
 }

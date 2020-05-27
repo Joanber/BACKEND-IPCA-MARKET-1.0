@@ -40,4 +40,9 @@ public class ProductoServiceImp implements ProductoService {
 		return productoRepository.findAllByOrderByIdAsc();
 	}
 
+	@Override
+	public List<Producto> findProductoByCategoriaNombre(String nombre) {
+		return productoRepository.findProductoByCategoriaNombre(nombre);
+	}
+
 }
