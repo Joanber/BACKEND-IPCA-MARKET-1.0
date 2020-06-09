@@ -23,5 +23,7 @@ public interface PersonaService {
     public Persona findById(Long id);
     
     public List<Persona> findAllByOrderByIdAsc();
+    
+    public List<Persona> findByNombreOrApellido(String nombre);
 
 }

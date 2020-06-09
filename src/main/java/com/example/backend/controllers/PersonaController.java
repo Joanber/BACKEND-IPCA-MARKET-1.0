@@ -90,6 +90,12 @@ public class PersonaController {
     public List<Persona> getPersonas() {
         return personaService.findAll();
     }
+    
+    @GetMapping("/filtrar/{termino}")
+    public List<Persona> getPersonas(@PathVariable String termino) {
+        return personaService.findByNombreOrApellido(termino);
+    }
+    
 
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@Valid @RequestBody Persona persona, BindingResult result, @PathVariable Long id) {

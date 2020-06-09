@@ -45,25 +45,29 @@ public class Usuario implements Serializable {
 
 	@Column(name = "activo")
 	private boolean activo;
-
-	@ManyToMany(fetch = FetchType.LAZY,cascade =
-        {
-                CascadeType.DETACH,
-                CascadeType.MERGE,
-                CascadeType.REFRESH,
-                CascadeType.PERSIST
-        })
-	@JoinTable(name = "usuarios_roles", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "rol_id"), uniqueConstraints = {
+	
+	
+	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.MERGE)
+	@JoinTable(name = "usuarios_roles", joinColumns = @JoinColumn(name = "usuario_id",updatable = true),inverseJoinColumns = @JoinColumn(name = "rol_id",updatable = true),uniqueConstraints = {
 			@UniqueConstraint(columnNames = { "usuario_id", "rol_id" }) })
 	public List<Rol> roles;
 
+	
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Persona persona;
 
 	public Usuario() {
-		roles=new ArrayList<>();
+		this.roles=new ArrayList<>();
+	}
+	
+	public void addRol(Rol rol) {
+		this.roles.add(rol);
+	}
+	
+	public void removeRol(Rol rol) {
+		this.roles.remove(rol);
 	}
 
 	public Long getId() {
@@ -109,9 +113,23 @@ public class Usuario implements Serializable {
 	public List<Rol> getRoles() {
 		return roles;
 	}
+	
+
 
 	public void setRoles(List<Rol> roles) {
 		this.roles = roles;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof Usuario)) {
+			return false;
+		}
+		Usuario a =(Usuario) obj;
+		
+		return this.id != null && this.id.equals(a.getId());
 	}
 
 }

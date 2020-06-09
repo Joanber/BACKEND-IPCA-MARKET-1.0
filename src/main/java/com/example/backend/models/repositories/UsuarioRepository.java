@@ -16,5 +16,8 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 	public List<Rol> findAllRoles();
 	
 	public List<Usuario> findAllByOrderByIdAsc();
+	
+	@Query("select u from Usuario u join fetch u.persona p where u.username like %?1% or p.nombre like %?1%")
+	public List<Usuario> findByUsernameOrNombrePersona(String termino);
 
 }

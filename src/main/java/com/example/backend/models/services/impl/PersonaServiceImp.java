@@ -52,5 +52,10 @@ public class PersonaServiceImp implements PersonaService{
 	public List<Persona> findAllByOrderByIdAsc() {
 		return personaRepository.findAllByOrderByIdAsc();
 	}
+
+	@Override
+	public List<Persona> findByNombreOrApellido(String nombre) {
+		return personaRepository.findByNombreOrApellido(nombre);
+	}
     
 }

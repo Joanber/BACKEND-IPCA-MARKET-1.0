@@ -18,5 +18,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
 	@Query("select p from Producto p join fetch p.categoria c where c.nombre=?1 order by p.id")
 	public List<Producto> findProductoByCategoriaNombre(String nombre);
 	
+	@Query("select p from Producto p  where  p.nombre like %?1% or p.codigo_barras like %?1%")
+	public List<Producto> findByNombreOrCodigoBarras(String termino);
 
 }

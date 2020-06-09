@@ -48,4 +48,9 @@ public class UsuarioServiceImp implements UsuarioService {
 		return usuarioRepository.findAllByOrderByIdAsc();
 	}
 
+	@Override
+	public List<Usuario> findByUsernameOrNombrePersona(String termino) {
+		return usuarioRepository.findByUsernameOrNombrePersona(termino);
+	}
+
 }

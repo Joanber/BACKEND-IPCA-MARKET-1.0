@@ -34,6 +34,8 @@ import com.example.backend.models.services.UsuarioService;
 public class UsuarioController {
 	@Autowired
     private UsuarioService usuarioService;
+	
+	
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
@@ -82,6 +84,11 @@ public class UsuarioController {
     public List<Usuario> getUsuarios() {
         return usuarioService.findAll();
     }
+    
+    @GetMapping("/filtrar/{termino}")
+    public List<Usuario> getUsuarios(@PathVariable String termino){
+    	return usuarioService.findByUsernameOrNombrePersona(termino);
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@Valid @RequestBody Usuario usuario, BindingResult result, @PathVariable Long id) {
@@ -108,6 +115,7 @@ public class UsuarioController {
             user.setPassword(usuario.getPassword());
             user.setActivo(usuario.isActivo());
             user.setPersona(usuario.getPersona());
+            user.setRoles(usuario.getRoles());   
 
             usuarioUpdate = usuarioService.save(user);
         } catch (DataAccessException e) {

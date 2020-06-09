@@ -7,12 +7,18 @@ package com.example.backend.models;
 
 import java.io.Serializable;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
 import javax.persistence.Table;
+
+
+
+
 
 /**
  *
@@ -27,8 +33,10 @@ public class Rol implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+   
     @Column(nullable = false, length = 20)
     private String nombre;
+
 
     public Rol() {
     }
@@ -47,6 +55,19 @@ public class Rol implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof Rol)) {
+			return false;
+		}
+		Rol a =(Rol) obj;
+		
+		return this.id != null && this.id.equals(a.getId());
 	}
 
    

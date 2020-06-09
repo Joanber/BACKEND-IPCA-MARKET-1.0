@@ -18,5 +18,7 @@ public interface UsuarioService {
 	public List<Rol> findAllRoles();
 
 	public List<Usuario> findAllByOrderByIdAsc();
+	
+	public List<Usuario> findByUsernameOrNombrePersona(String termino);
 
 }

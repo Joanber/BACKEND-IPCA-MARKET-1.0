@@ -86,6 +86,12 @@ public class ProductoController {
 	public List<Producto> getProductos() {
 		return productoService.findAll();
 	}
+	
+	@GetMapping("/filtrar/{termino}")
+    public List<Producto> getProductos(@PathVariable String termino){
+    	return productoService.findByNombreOrCodigoBarras(termino);
+    }
+	
 	@GetMapping("/categoria/{nombre}")
 	public List<Producto> getProductosByCategoria(@PathVariable String nombre) {
 		return productoService.findProductoByCategoriaNombre(nombre);
