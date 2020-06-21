@@ -81,6 +81,24 @@ public class ProductoController {
 		}
 		return new ResponseEntity<Producto>(producto, HttpStatus.OK);
 	}
+	@GetMapping("/codigo/{codigo}")
+	public ResponseEntity<?> getByCodigoBarras(@PathVariable String codigo) {
+		Producto producto = null;
+		Map<String, Object> response = new HashMap<>();
+
+		try {
+			producto = productoService.findProductoByCodigoBarras(codigo);
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error  en la consulta de la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		if (producto == null) {
+			response.put("mensaje", "El producto con el codigo: ".concat(codigo.toString()).concat(" no existe en la base de datos"));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Producto>(producto, HttpStatus.OK);
+	}
 
 	@GetMapping("/")
 	public List<Producto> getProductos() {
@@ -127,6 +145,44 @@ public class ProductoController {
 			pro.setCantidad_maxima(producto.getCantidad_maxima());
 			pro.setCantidad_minima(producto.getCantidad_minima());
 			pro.setCategoria(producto.getCategoria());
+
+			productoUpdate = productoService.save(pro);
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al actualizar el proente en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		response.put("mensaje", "Producto actualizado con exito");
+		response.put("producto", productoUpdate);
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+	}
+	@PutMapping("/codigo/{codigo}")
+	public ResponseEntity<?> updateCantidad(@Valid @RequestBody Producto producto, BindingResult result,
+			@PathVariable String codigo) {
+		Producto pro = productoService.findProductoByCodigoBarras(codigo);
+		
+
+		Producto productoUpdate = null;
+
+		Map<String, Object> response = new HashMap<>();
+		if (result.hasErrors()) {
+			List<String> errors = result.getFieldErrors().stream().map(err -> {
+				return "El campo '" + err.getField() + "' " + err.getDefaultMessage();
+			}).collect(Collectors.toList());
+			response.put("errors", errors);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
+
+		if (pro == null) {
+			response.put("mensaje", "Error:no se pudo editar, el proente ID: ".concat(codigo.toString())
+					.concat(" no existe en la base de datos"));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		try {
+			//double cantidad =pro.getCantidad_maxima() + producto.getCantidad_maxima();
+			pro.setCantidad_maxima(producto.getCantidad_maxima()+pro.getCantidad_maxima());
+			pro.setCategoria(producto.getCategoria());
+			
 
 			productoUpdate = productoService.save(pro);
 		} catch (DataAccessException e) {

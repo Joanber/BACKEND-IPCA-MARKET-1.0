@@ -20,5 +20,8 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
 	
 	@Query("select p from Producto p  where  p.nombre like %?1% or p.codigo_barras like %?1%")
 	public List<Producto> findByNombreOrCodigoBarras(String termino);
+	
+	@Query("select p from Producto p  where   p.codigo_barras=?1")
+	public Producto findProductoByCodigoBarras(String codigo);
 
 }

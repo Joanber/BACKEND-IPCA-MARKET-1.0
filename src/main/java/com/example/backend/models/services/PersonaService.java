@@ -8,6 +8,9 @@ package com.example.backend.models.services;
 import com.example.backend.models.Persona;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 /**
  *
  * @author Andy
@@ -25,5 +28,7 @@ public interface PersonaService {
     public List<Persona> findAllByOrderByIdAsc();
     
     public List<Persona> findByNombreOrApellido(String nombre);
+    
+    public Page<Persona> findAll(Pageable pageable);
 
 }

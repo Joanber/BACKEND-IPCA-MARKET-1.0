@@ -10,6 +10,8 @@ import com.example.backend.models.repositories.PersonaRepository;
 import com.example.backend.models.services.PersonaService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -56,6 +58,11 @@ public class PersonaServiceImp implements PersonaService{
 	@Override
 	public List<Persona> findByNombreOrApellido(String nombre) {
 		return personaRepository.findByNombreOrApellido(nombre);
+	}
+
+	@Override
+	public Page<Persona> findAll(Pageable pageable) {
+		return personaRepository.findAll(pageable);
 	}
     
 }
