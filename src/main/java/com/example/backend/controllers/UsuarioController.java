@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,9 +36,10 @@ public class UsuarioController {
 	@Autowired
     private UsuarioService usuarioService;
 	
+	@Autowired
+	PasswordEncoder encoder;
 	
-
-    @PostMapping("/")
+	@PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> create(@Valid @RequestBody Usuario usuario, BindingResult result) {
         Map<String, Object> response = new HashMap<>();
@@ -50,6 +52,7 @@ public class UsuarioController {
             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
         }
         try {
+        	usuario.setPassword(encoder.encode(usuario.getPassword()));
             newUsuario = usuarioService.save(usuario);
         } catch (DataAccessException e) {
             response.put("mensaje", "Error  en la inserccion en la base de datos");
@@ -112,7 +115,7 @@ public class UsuarioController {
         }
         try {
             user.setUsername(usuario.getUsername());
-            user.setPassword(usuario.getPassword());
+            user.setPassword(encoder.encode(usuario.getPassword()));
             user.setActivo(usuario.isActivo());
             user.setPersona(usuario.getPersona());
             user.setRoles(usuario.getRoles());   
