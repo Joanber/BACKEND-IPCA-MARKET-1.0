@@ -1,5 +1,5 @@
-INSERT INTO roles(nombre) VALUES ('ROL_ADMIN');
-INSERT INTO roles(nombre) VALUES ('ROL_USER');
+INSERT INTO roles(nombre) VALUES ('ROLE_ADMIN');
+INSERT INTO roles(nombre) VALUES ('ROLE_USER');
 
 INSERT INTO personas(cedula,nombre,apellido,telefono,direccion,email,fecha) VALUES ('SN','IPCA','MARKET','4106861','Av Isabel la Catolica, Cuenca','ipca_cuenca@hotmail.es','2000-01-03');
 INSERT INTO personas(cedula,nombre,apellido,telefono,direccion,email,fecha) VALUES ('0106385065','andres','bermeo','0990613829','Lazareto','pepeandy1998@gmail.com','1998-01-20');

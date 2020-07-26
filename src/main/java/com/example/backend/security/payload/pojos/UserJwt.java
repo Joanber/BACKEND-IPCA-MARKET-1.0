@@ -8,12 +8,14 @@ public class UserJwt {
 	private Long id;
 	private String username;
 	private List<String> roles;
+	private Long id_persona;
 
-	public UserJwt (String accessToken, Long id, String username, List<String> roles) {
+	public UserJwt (String accessToken, Long id, String username, List<String> roles, Long id_persona) {
 		this.token = accessToken;
 		this.id = id;
 		this.username = username;
 		this.roles = roles;
+		this.id_persona=id_persona;
 	}
 
 	public String getAccessToken() {
@@ -51,5 +53,12 @@ public class UserJwt {
 
 	public List<String> getRoles() {
 		return roles;
+	}
+	public Long getId_persona() {
+		return id_persona;
+	}
+
+	public void setId_persona(Long id_persona) {
+		this.id_persona = id_persona;
 	}
 }
