@@ -49,6 +49,7 @@ public class PersonaController {
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> create(@Valid @RequestBody Persona persona, BindingResult result) {
         Map<String, Object> response = new HashMap<>();
         Persona newPersona = null;
@@ -91,7 +92,7 @@ public class PersonaController {
     }
 
     @GetMapping("/")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<Persona> getPersonas() {
         return personaService.findAll();
     }

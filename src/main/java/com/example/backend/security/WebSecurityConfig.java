@@ -22,7 +22,7 @@ import com.example.backend.security.services.UserDetailsServiceImpl;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
-		// securedEnabled = true,
+		securedEnabled = true,
 		// jsr250Enabled = true,
 		prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -59,7 +59,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			.authorizeRequests().antMatchers("/api/auth/login**").permitAll()
-			.antMatchers("/api/test/**").permitAll().antMatchers("/api/usuarios/").permitAll()
 			.anyRequest().authenticated();
 
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);

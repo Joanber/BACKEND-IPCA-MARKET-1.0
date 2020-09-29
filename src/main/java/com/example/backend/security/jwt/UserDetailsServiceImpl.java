@@ -2,6 +2,8 @@ package com.example.backend.security.jwt;
 
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,6 +16,9 @@ import com.example.backend.security.services.UserDetailsImpl;
 
 
 public class UserDetailsServiceImpl implements UserDetailsService{
+	
+	private Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
+			
 	@Autowired
 	private UsuarioRepository userRepository;
 
@@ -21,6 +26,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Usuario user=userRepository.findByUsername(username);
 		if (user==null) {
+			logger.error("Error en el login: no existe el usuario '"+username+"' en el sistema!");
 			throw new UsernameNotFoundException(String.format("Usuario No encontrado con username: ", username));
 		}
 		else {
