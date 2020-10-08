@@ -22,6 +22,22 @@ INSERT INTO usuarios(activo,username,password,persona_id) VALUES (true,'andres',
 INSERT INTO usuarios_roles(usuario_id,rol_id) VALUES (2,1);
 INSERT INTO usuarios_roles(usuario_id,rol_id) VALUES (2,2);
 INSERT INTO usuarios_roles(usuario_id,rol_id) VALUES (1,1);
+INSERT INTO facturas (fecha,observacion) VALUES (now(),'');
+INSERT INTO facturas (fecha,observacion) VALUES (now(),'');
+INSERT INTO facturas (fecha,observacion) VALUES ('2020-10-06','');
+INSERT INTO facturas (fecha,observacion) VALUES ('2020-10-05','');
+
+INSERT INTO detalles_facturas (cantidad,total,producto_id,factura_id) VALUES (2,1,1,1);
+INSERT INTO detalles_facturas (cantidad,total,producto_id,factura_id) VALUES (2,1,2,1);
+
+INSERT INTO detalles_facturas (cantidad,total,producto_id,factura_id) VALUES (2,1,3,2);
+INSERT INTO detalles_facturas (cantidad,total,producto_id,factura_id) VALUES (2,1,4,2);
+
+INSERT INTO detalles_facturas (cantidad,total,producto_id,factura_id) VALUES (2,1,4,3);
+INSERT INTO detalles_facturas (cantidad,total,producto_id,factura_id) VALUES (1,1,5,3);
+
+INSERT INTO detalles_facturas (cantidad,total,producto_id,factura_id) VALUES (2,1,1,4);
+INSERT INTO detalles_facturas (cantidad,total,producto_id,factura_id) VALUES (2,1,1,4);
 
 
 	       

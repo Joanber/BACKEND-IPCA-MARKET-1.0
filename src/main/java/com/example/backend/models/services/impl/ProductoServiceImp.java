@@ -55,4 +55,9 @@ public class ProductoServiceImp implements ProductoService {
 		return productoRepository.findProductoByCodigoBarras(codigo);
 	}
 
+	@Override
+	public List<Producto> findProductosByCodigoBarrasOrNombre(String codigo) {
+		return productoRepository.findByNombreOrCodigoBarras(codigo);
+	}
+
 }

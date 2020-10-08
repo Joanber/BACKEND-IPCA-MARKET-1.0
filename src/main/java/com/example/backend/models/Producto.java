@@ -8,6 +8,8 @@ package com.example.backend.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -39,7 +41,7 @@ public class Producto implements Serializable {
 	@Column(nullable = true, length = 300)
 	private String descripcion;
 
-	@Column(nullable = false)
+	@Column(nullable = false,  scale = 2)
 	private Double precio;
 
 	@Column(nullable = false)
@@ -94,14 +96,13 @@ public class Producto implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public double getPrecio() {
+	
+	public Double getPrecio() {
 		return precio;
 	}
-
-	public void setPrecio(double precio) {
+	public void setPrecio(Double precio) {
 		this.precio = precio;
 	}
-
 	public double getCantidad_maxima() {
 		return cantidad_maxima;
 	}
@@ -124,10 +125,6 @@ public class Producto implements Serializable {
 
 	public void setFoto(byte[] foto) {
 		this.foto = foto;
-	}
-
-	public void setPrecio(Double precio) {
-		this.precio = precio;
 	}
 
 	public void setCantidad_maxima(Double cantidad_maxima) {

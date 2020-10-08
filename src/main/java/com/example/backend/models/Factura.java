@@ -38,8 +38,6 @@ public class Factura implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = true, length = 150)
-    private String descripcion;
 
     @Column(nullable = true, length = 150)
     private String observacion;
@@ -70,14 +68,7 @@ public class Factura implements Serializable {
         this.id = id;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
+   
     public String getObservacion() {
         return observacion;
     }

@@ -59,7 +59,7 @@ public class DetalleFactura implements Serializable {
     }
 
     public Double getTotal() {
-        return total;
+        return cantidad.doubleValue()*producto.getPrecio();
     }
 
     public void setTotal(Double total) {
