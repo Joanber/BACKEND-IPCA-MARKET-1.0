@@ -27,7 +27,7 @@ public interface PersonaService {
     
     public List<Persona> findAllByOrderByIdAsc();
     
-    public List<Persona> findByNombreOrApellido(String nombre);
+    public List<Persona> findByNombreOrApellidoIgnoreCase(String nombre);
     
     public Page<Persona> findAll(Pageable pageable);
 

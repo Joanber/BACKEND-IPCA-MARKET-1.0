@@ -54,7 +54,7 @@ public class Rol implements Serializable {
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.nombre = nombre.toUpperCase();
 	}
 	
 	@Override

@@ -21,7 +21,7 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 	public List<Persona> findAllByOrderByIdAsc();
 	
 	@Query("select a from Persona a where a.nombre like %?1% or a.apellido like %?1%")
-	public List<Persona> findByNombreOrApellido(String termino);
+	public List<Persona> findByNombreOrApellidoIgnoreCase(String termino);
 	
 	@Query("select a from Persona a order by apellido")
 	public Page<Persona> findAll(Pageable pageable);

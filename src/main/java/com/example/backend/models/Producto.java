@@ -77,7 +77,7 @@ public class Producto implements Serializable {
 	}
 
 	public void setCodigo_barras(String codigo_barras) {
-		this.codigo_barras = codigo_barras;
+		this.codigo_barras = codigo_barras.toUpperCase();
 	}
 
 	public String getNombre() {
@@ -85,7 +85,7 @@ public class Producto implements Serializable {
 	}
 
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		this.nombre = nombre.toUpperCase();
 	}
 
 	public String getDescripcion() {
@@ -93,7 +93,7 @@ public class Producto implements Serializable {
 	}
 
 	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+		this.descripcion = descripcion.toUpperCase();
 	}
 
 	

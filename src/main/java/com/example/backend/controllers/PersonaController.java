@@ -96,7 +96,7 @@ public class PersonaController {
     
     @GetMapping("/filtrar/{termino}")
     public List<Persona> getPersonas(@PathVariable String termino) {
-        return personaService.findByNombreOrApellido(termino);
+        return personaService.findByNombreOrApellidoIgnoreCase(termino);
     }
     
     @GetMapping("/page/{page}")

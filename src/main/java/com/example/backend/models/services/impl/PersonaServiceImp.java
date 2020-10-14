@@ -56,8 +56,8 @@ public class PersonaServiceImp implements PersonaService{
 	}
 
 	@Override
-	public List<Persona> findByNombreOrApellido(String nombre) {
-		return personaRepository.findByNombreOrApellido(nombre);
+	public List<Persona> findByNombreOrApellidoIgnoreCase(String nombre) {
+		return personaRepository.findByNombreOrApellidoIgnoreCase(nombre);
 	}
 
 	@Override

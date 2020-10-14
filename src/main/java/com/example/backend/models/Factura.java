@@ -74,7 +74,7 @@ public class Factura implements Serializable {
     }
 
     public void setObservacion(String observacion) {
-        this.observacion = observacion;
+        this.observacion = observacion.toUpperCase();
     }
 
     public Date getFecha() {

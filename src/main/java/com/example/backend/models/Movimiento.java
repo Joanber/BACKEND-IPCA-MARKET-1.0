@@ -86,7 +86,7 @@ public class Movimiento implements Serializable {
     }
 
     public void setObservacion(String observacion) {
-        this.observacion = observacion;
+        this.observacion = observacion.toUpperCase();
     }
 
     public List<DetalleMovimiento> getDetalles_movimientos() {
