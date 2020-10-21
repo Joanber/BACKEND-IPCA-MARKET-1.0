@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,6 +18,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+
 
 /**
  *
@@ -41,10 +42,10 @@ public class Producto implements Serializable {
 	@Column(nullable = true, length = 300)
 	private String descripcion;
 
-	@Column(nullable = false,  scale = 2)
+	@Column(nullable = false,precision = 10, scale = 2 )
 	private Double precio;
 
-	@Column(nullable = false)
+	@Column(nullable = false,precision = 10, scale = 2 )
 	private Double cantidad_maxima;
 
 	@Column(nullable = false)
@@ -97,20 +98,17 @@ public class Producto implements Serializable {
 	}
 
 	
+	
+	
 	public Double getPrecio() {
 		return precio;
 	}
 	public void setPrecio(Double precio) {
 		this.precio = precio;
 	}
-	public double getCantidad_maxima() {
+	public Double getCantidad_maxima() {
 		return cantidad_maxima;
 	}
-
-	public void setCantidad_maxima(double cantidad_maxima) {
-		this.cantidad_maxima = cantidad_maxima;
-	}
-
 	public double getCantidad_minima() {
 		return cantidad_minima;
 	}

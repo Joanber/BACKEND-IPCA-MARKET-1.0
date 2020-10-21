@@ -179,6 +179,7 @@ public class ProductoController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
 		}
 		try {
+			
 			pro.setCantidad_maxima(producto.getCantidad_maxima()+pro.getCantidad_maxima());
 			pro.setCategoria(producto.getCategoria());
 			

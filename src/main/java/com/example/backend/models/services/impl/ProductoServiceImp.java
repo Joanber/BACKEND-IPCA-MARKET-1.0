@@ -60,4 +60,6 @@ public class ProductoServiceImp implements ProductoService {
 		return productoRepository.findByNombreOrCodigoBarras(codigo);
 	}
 
+	
+
 }

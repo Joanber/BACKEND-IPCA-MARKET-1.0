@@ -1,5 +1,6 @@
 package com.example.backend.controllers;
 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,10 +24,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.backend.models.DetalleFactura;
 import com.example.backend.models.Factura;
 import com.example.backend.models.Producto;
 import com.example.backend.models.services.FacturaService;
 import com.example.backend.models.services.ProductoService;
+import com.example.backend.pojos.ProductosBajosInventario;
+import com.example.backend.pojos.ProductosInventario;
 import com.example.backend.pojos.ProductosVentas;
 
 @RestController
@@ -45,6 +49,7 @@ public class FacturaController {
 	public ResponseEntity<?> create(@Valid @RequestBody Factura factura, BindingResult result) {
 		Map<String, Object> response = new HashMap<>();
 		Factura newFactura = null;
+		Producto pro=null;
 		if (result.hasErrors()) {
 			List<String> errors = result.getFieldErrors().stream().map(err -> {
 				return "El campo '" + err.getField() + "' " + err.getDefaultMessage();
@@ -53,7 +58,15 @@ public class FacturaController {
 			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
 		}
 		try {
+			for(DetalleFactura detalleFactura:factura.getDetalles_facturas()) {
+				pro=productoService.findById(detalleFactura.getProducto().getId());
+				double nuevaCantidadPro=pro.getCantidad_maxima()-detalleFactura.getCantidad();
+				pro.setCantidad_maxima(nuevaCantidadPro);
+				productoService.save(pro);	
+			}
+			
 			newFactura = facturaService.save(factura);
+			
 		} catch (DataAccessException e) {
 			response.put("mensaje", "Error  en la inserccion en la base de datos");
 			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
@@ -63,7 +76,7 @@ public class FacturaController {
 		response.put("factura", newFactura);
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
-
+	
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getById(@PathVariable Long id) {
 		Factura factura = null;
@@ -144,6 +157,23 @@ public class FacturaController {
 	@GetMapping("/filtrar-ventasProducto/{fecha1}/{fecha2}")
 	public List<ProductosVentas> findProductoVentaByFechas(@PathVariable String fecha1, @PathVariable String fecha2) {
 		return facturaService.findProductoByFecha(fecha1, fecha2);
+	}
+	//CONSULTA QUE TRAE LOS PRODUCTOS BAJOS EN INVENTARIO
+	@GetMapping("/filtrar-productos-bajos-inventario")
+	public List<ProductosBajosInventario> findProductosBajosInvetario() {
+		return facturaService.findProductosBajosEnInventario();
+	}
+	
+	//CONSULTA QUE TRAE PRODUCTOS INVENTARIO
+	@GetMapping("/filtrar-productos-inventario")
+	public List<ProductosInventario> findProductosInvetario() {
+		return facturaService.findProductosInventario();
+	}
+	
+	//CONSULTA QUE TRAE PRODUCTOS INVENTARIO POR CATEGORIA
+	@GetMapping("/filtrar-productos-inventario-categoria/{categoria}")
+	public List<ProductosInventario> findProductosInventarioCategoria(@PathVariable String categoria) {
+		return facturaService.findProductosInventarioPorCategoria(categoria);
 	}
 
 }

@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.example.backend.models.Factura;
 import com.example.backend.models.repositories.FacturaRepository;
 import com.example.backend.models.services.FacturaService;
+import com.example.backend.pojos.ProductosBajosInventario;
+import com.example.backend.pojos.ProductosInventario;
 import com.example.backend.pojos.ProductosVentas;
 
 
@@ -57,6 +59,21 @@ public class FacturaServiceImp implements FacturaService {
 			e.printStackTrace();
 		}
 		return facturaRepository.findProductosByFecha(desdee, hastaa);
+	}
+
+	@Override
+	public List<ProductosBajosInventario> findProductosBajosEnInventario() {
+		return facturaRepository.findProductosBajosEnInventario();
+	}
+
+	@Override
+	public List<ProductosInventario> findProductosInventario() {
+		return facturaRepository.findProductosInventario();
+	}
+
+	@Override
+	public List<ProductosInventario> findProductosInventarioPorCategoria(String categoria) {
+		return facturaRepository.findProductosInventarioPorCategoria(categoria);
 	}
 
 

@@ -7,6 +7,8 @@ package com.example.backend.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
 
 /**
  *
@@ -32,7 +35,7 @@ public class DetalleFactura implements Serializable {
     @Column(nullable = false)
     private Integer cantidad;
 
-    @Column(nullable = false)
+    @Column(nullable = false,precision = 10, scale = 2 )
     private Double total;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -50,21 +53,28 @@ public class DetalleFactura implements Serializable {
         this.id = id;
     }
 
-    public Integer getCantidad() {
-        return cantidad;
-    }
+   
 
-    public void setCantidad(Integer cantidad) {
-        this.cantidad = cantidad;
-    }
+ 
 
-    public Double getTotal() {
+	public Integer getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(Integer cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	public void setTotal(Double total) {
+		this.total = total;
+	}
+
+	public Double getTotal() {
         return cantidad.doubleValue()*producto.getPrecio();
+        
     }
 
-    public void setTotal(Double total) {
-        this.total = total;
-    }
+   
 
     public Producto getProducto() {
         return producto;
