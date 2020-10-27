@@ -43,7 +43,7 @@ public class Factura implements Serializable {
     private String observacion;
 
     @Column(name = "fecha")
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})

@@ -1,5 +1,6 @@
 package com.example.backend.controllers;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,8 +9,11 @@ import java.util.stream.Collectors;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,8 +24,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.backend.models.Categoria;
 import com.example.backend.models.services.CategoriaService;
@@ -128,5 +134,88 @@ public class CategoriaController {
 		response.put("mensaje", "Categoria eliminada con exito");
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
+	
+	@PostMapping("/crear-con-foto")
+	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<?> createconfoto(@Valid  Categoria categoria, BindingResult result,@RequestParam MultipartFile archivo) {
+		Map<String, Object> response = new HashMap<>();
+		Categoria newCategoria = null;
+		if (!archivo.isEmpty()) {
+            try {
+                categoria.setFoto(archivo.getBytes());
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+		if (result.hasErrors()) {
+			List<String> errors = result.getFieldErrors().stream().map(err -> {
+				return "El campo '" + err.getField() + "' " + err.getDefaultMessage();
+			}).collect(Collectors.toList());
+			response.put("errors", errors);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
+		try {
+			newCategoria = categoriaService.save(categoria);
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error  en la inserccion en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		response.put("mensaje", "Categoria insertada  con exito");
+		response.put("categoria", newCategoria);
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+	}
+	@PutMapping("/editar-con-foto/{id}")
+	public ResponseEntity<?> updatecomfoto(@Valid Categoria categoria, BindingResult result,
+			@PathVariable Long id,@RequestParam MultipartFile archivo) {
+		Categoria cat = categoriaService.findById(id);
+
+		Categoria categoriaUpdate = null;
+
+		Map<String, Object> response = new HashMap<>();
+		if (result.hasErrors()) {
+			List<String> errors = result.getFieldErrors().stream().map(err -> {
+				return "El campo '" + err.getField() + "' " + err.getDefaultMessage();
+			}).collect(Collectors.toList());
+			response.put("errors", errors);
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.BAD_REQUEST);
+		}
+
+		if (cat == null) {
+			response.put("mensaje", "Error:no se pudo editar, la categoria ID: ".concat(id.toString())
+					.concat(" no existe en la base de datos"));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
+		}
+		try {
+			cat.setNombre(categoria.getNombre());
+			 if (!archivo.isEmpty()) {
+	                try {
+	                    cat.setFoto(archivo.getBytes());
+	                } catch (IOException e) {
+	                    e.printStackTrace();
+	                }
+	            }
+			categoriaUpdate = categoriaService.save(cat);
+		} catch (DataAccessException e) {
+			response.put("mensaje", "Error al actualizar en la base de datos");
+			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+		response.put("mensaje", "Categoria actualizada con exito");
+		response.put("categoria", categoriaUpdate);
+		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
+	}
+	
+	 @GetMapping("/img/{id}")
+	    public ResponseEntity<?> verFoto(@PathVariable Long id){
+	        Categoria categoria = categoriaService.findById(id);
+	        
+	        if (categoria==null || categoria.getFoto()== null) {
+	            return ResponseEntity.notFound().build();
+	        }
+	        Resource imagen = new ByteArrayResource(categoria.getFoto());
+	        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imagen);
+	    }
 
 }

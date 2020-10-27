@@ -13,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
  * @author Andy
@@ -28,11 +30,27 @@ public class Categoria implements Serializable {
 
     @Column(nullable = false, length = 60)
     private String nombre;
+    
+    @JsonIgnore
+    private byte [] foto;
 
     public Categoria() {
     }
+    
+    public Integer getFotoHashCode(){
+        return (this.foto!=null)? this.foto.hashCode():null;
+    }
+    
 
-    public Long getId() {
+    public byte[] getFoto() {
+		return foto;
+	}
+
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
+	}
+
+	public Long getId() {
         return id;
     }
 
