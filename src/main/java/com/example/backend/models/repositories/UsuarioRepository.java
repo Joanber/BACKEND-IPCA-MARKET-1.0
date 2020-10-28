@@ -2,6 +2,8 @@ package com.example.backend.models.repositories;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -21,6 +23,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 	public List<Usuario> findByUsernameOrNombrePersona(String termino);
 	
 	public Usuario findByUsername(String username);
+	
+	@Query("select u from Usuario u order by username")
+	public Page<Usuario> findAll(Pageable pageable);
 	
 	
 

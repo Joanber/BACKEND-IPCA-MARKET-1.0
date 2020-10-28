@@ -2,6 +2,9 @@ package com.example.backend.models.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.example.backend.models.Producto;
 
 public interface ProductoService {
@@ -24,7 +27,7 @@ public interface ProductoService {
 	
 	public List<Producto>  findProductosByCodigoBarrasOrNombre(String codigo);
 	
-	public Producto findByNombre(String nombre);
+	public Page<Producto> findAll(Pageable pageable);
 	
 	
 

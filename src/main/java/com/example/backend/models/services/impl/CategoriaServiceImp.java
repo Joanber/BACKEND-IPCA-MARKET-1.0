@@ -3,6 +3,8 @@ package com.example.backend.models.services.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,6 +51,11 @@ public class CategoriaServiceImp implements CategoriaService{
 	@Override
 	public Categoria findByNombre(String nombre) {
 		return categoriaRepository.findByNombre(nombre);
+	}
+
+	@Override
+	public Page<Categoria> findAll(Pageable pageable) {
+		return categoriaRepository.findAll(pageable);
 	}
 
 }

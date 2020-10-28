@@ -33,7 +33,7 @@ public class Producto implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(nullable = false, length = 25)
+	@Column(nullable = false, length = 50,unique = true)
 	private String codigo_barras;
 
 	@Column(nullable = false, length = 300)

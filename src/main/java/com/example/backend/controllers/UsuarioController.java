@@ -10,6 +10,9 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -147,6 +150,19 @@ public class UsuarioController {
     public List<Rol> getRoles() {
         return usuarioService.findAllRoles();
     }
+    
+    @GetMapping("/existe-username-usuario/{username}")
+    public Usuario getUsernameExiste(@PathVariable String username) {
+    	return usuarioService.findByUsername(username);
+    }
+    
+    @GetMapping("/page/{page}")
+    public Page<Usuario> getUsuarios(@PathVariable Integer page){
+    	Pageable pageable = PageRequest.of(page, 5);
+    	return usuarioService.findAll(pageable);
+    }
+    
+    
 
 
 }

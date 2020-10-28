@@ -1,8 +1,11 @@
 package com.example.backend.models.repositories;
 
 
+
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -24,7 +27,8 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
 	@Query("select p from Producto p  where   p.codigo_barras=?1")
 	public Producto findProductoByCodigoBarras(String codigo);
 	
-	public Producto findByNombre(String nombre);
+	@Query("select p from Producto p  order by nombre")
+	public Page<Producto> findAll(Pageable pageable);
 	
 
 

@@ -1,8 +1,11 @@
 package com.example.backend.models.services.impl;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.backend.models.Producto;
@@ -61,8 +64,8 @@ public class ProductoServiceImp implements ProductoService {
 	}
 
 	@Override
-	public Producto findByNombre(String nombre) {
-		return productoRepository.findByNombre(nombre);
+	public Page<Producto> findAll(Pageable pageable) {
+		return productoRepository.findAll(pageable);
 	}
 
 	

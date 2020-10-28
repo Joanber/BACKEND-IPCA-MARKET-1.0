@@ -28,7 +28,7 @@ public class Categoria implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 60)
+    @Column(nullable = false, length = 60,unique = true)
     private String nombre;
     
     @JsonIgnore
