@@ -17,5 +17,7 @@ public interface CategoriaService {
     public Categoria findById(Long id);
     
     public List<Categoria> findAllByOrderByIdAsc();
+    
+    public Categoria findByNombre(String nombre);
 
 }

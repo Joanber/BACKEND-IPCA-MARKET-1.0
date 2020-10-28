@@ -249,5 +249,10 @@ public class PersonaController {
         Resource imagen = new ByteArrayResource(persona.getFoto());
         return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imagen);
     }
+    
+    @GetMapping("/existe-cedula-persona/{cedula}")
+    public Persona getCedulaExiste(@PathVariable String cedula) {
+        return personaService.findByCedula(cedula);
+    }
 
 }

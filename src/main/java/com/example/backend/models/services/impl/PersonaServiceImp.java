@@ -64,5 +64,10 @@ public class PersonaServiceImp implements PersonaService{
 	public Page<Persona> findAll(Pageable pageable) {
 		return personaRepository.findAll(pageable);
 	}
+
+	@Override
+	public Persona findByCedula(String cedula) {
+		return personaRepository.findByCedula(cedula);
+	}
     
 }

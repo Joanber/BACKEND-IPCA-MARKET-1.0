@@ -30,5 +30,7 @@ public interface PersonaService {
     public List<Persona> findByNombreOrApellidoIgnoreCase(String nombre);
     
     public Page<Persona> findAll(Pageable pageable);
+    
+    public Persona findByCedula(String cedula);
 
 }

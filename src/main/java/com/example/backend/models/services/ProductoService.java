@@ -24,6 +24,9 @@ public interface ProductoService {
 	
 	public List<Producto>  findProductosByCodigoBarrasOrNombre(String codigo);
 	
+	public Producto findByNombre(String nombre);
+	
+	
 
   
 

@@ -25,4 +25,6 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 	
 	@Query("select a from Persona a order by apellido")
 	public Page<Persona> findAll(Pageable pageable);
+	
+	public Persona findByCedula(String cedula);
 }

@@ -11,5 +11,7 @@ import com.example.backend.models.Categoria;
 public interface CategoriaRepository extends JpaRepository<Categoria, Long>{
 	
 	public List<Categoria> findAllByOrderByIdAsc();
+	
+	public Categoria findByNombre(String nombre);
 
 }

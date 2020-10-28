@@ -20,5 +20,7 @@ public interface UsuarioService {
 	public List<Usuario> findAllByOrderByIdAsc();
 	
 	public List<Usuario> findByUsernameOrNombrePersona(String termino);
+	
+	public Usuario findByUsername(String username);
 
 }

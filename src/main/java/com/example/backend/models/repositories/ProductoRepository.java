@@ -24,6 +24,8 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
 	@Query("select p from Producto p  where   p.codigo_barras=?1")
 	public Producto findProductoByCodigoBarras(String codigo);
 	
+	public Producto findByNombre(String nombre);
+	
 
 
 }

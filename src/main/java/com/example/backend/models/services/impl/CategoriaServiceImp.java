@@ -46,4 +46,9 @@ public class CategoriaServiceImp implements CategoriaService{
 		return categoriaRepository.findAllByOrderByIdAsc();
 	}
 
+	@Override
+	public Categoria findByNombre(String nombre) {
+		return categoriaRepository.findByNombre(nombre);
+	}
+
 }

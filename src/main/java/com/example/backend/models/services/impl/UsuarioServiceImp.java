@@ -53,4 +53,9 @@ public class UsuarioServiceImp implements UsuarioService {
 		return usuarioRepository.findByUsernameOrNombrePersona(termino);
 	}
 
+	@Override
+	public Usuario findByUsername(String username) {
+		return usuarioRepository.findByUsername(username);
+	}
+
 }

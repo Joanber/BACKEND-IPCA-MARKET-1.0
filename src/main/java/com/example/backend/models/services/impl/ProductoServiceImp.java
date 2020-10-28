@@ -60,6 +60,11 @@ public class ProductoServiceImp implements ProductoService {
 		return productoRepository.findByNombreOrCodigoBarras(codigo);
 	}
 
+	@Override
+	public Producto findByNombre(String nombre) {
+		return productoRepository.findByNombre(nombre);
+	}
+
 	
 
 }
