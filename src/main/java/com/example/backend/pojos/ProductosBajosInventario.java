@@ -1,6 +1,8 @@
 package com.example.backend.pojos;
 
 public interface ProductosBajosInventario {
+	public  Long  getId();
+	
 	public String getCodigo_barras();
 
 	public String getNombre();

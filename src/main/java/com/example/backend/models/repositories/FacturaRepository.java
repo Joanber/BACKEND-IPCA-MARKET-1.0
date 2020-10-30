@@ -15,8 +15,6 @@ import com.example.backend.pojos.ProductosVentas;
 @Repository
 public interface FacturaRepository extends JpaRepository<Factura, Long> {
 	
-	String desde="00:00:00";
-	String hasta="23:59:59";
 
 	@Query(value = "SELECT p.codigo_barras AS codigo_barras,p.nombre AS nombre,df.cantidad AS cantidad,p.precio AS precio ,c.nombre AS nombre_categoria"
 			+ "	from productos p INNER JOIN categorias c on p.categoria_id = c.id"
@@ -25,7 +23,7 @@ public interface FacturaRepository extends JpaRepository<Factura, Long> {
 
 	public List<ProductosVentas> findProductosByFecha(Date desde, Date hasta);
 
-	@Query(value = "SELECT p.codigo_barras, p.nombre,p.cantidad_maxima,p.cantidad_minima,p.precio,c.nombre AS nombre_categoria"
+	@Query(value = "SELECT p.id,p.codigo_barras, p.nombre,p.cantidad_maxima,p.cantidad_minima,p.precio,c.nombre AS nombre_categoria"
 			+ " from productos p INNER JOIN categorias c on p.categoria_id = c.id where p.cantidad_maxima<p.cantidad_minima", nativeQuery = true)
 	public List<ProductosBajosInventario> findProductosBajosEnInventario();
 	

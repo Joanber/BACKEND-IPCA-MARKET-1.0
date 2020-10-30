@@ -84,6 +84,7 @@ public class ProductoController {
 		}
 		return new ResponseEntity<Producto>(producto, HttpStatus.OK);
 	}
+	//SIRVE TAMBIEN PARA EL CODIGO DE BARRAS EXISTENTE
 	@GetMapping("/codigo/{codigo}")
 	public ResponseEntity<?> getByCodigoBarras(@PathVariable String codigo) {
 		Producto producto = null;

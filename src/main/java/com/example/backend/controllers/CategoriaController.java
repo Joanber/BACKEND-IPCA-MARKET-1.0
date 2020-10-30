@@ -226,7 +226,7 @@ public class CategoriaController {
 		 Pageable pageable = PageRequest.of(page, 5);
 		 return categoriaService.findAll(pageable);
 	 }
-	 
+	 //PARA UN NOMBRE DE CATEGORIA EXISTENTE
 	 @GetMapping("/existe-nombre-categoria/{nombre}")
 	 public Categoria getNombreExiste(@PathVariable String nombre) {
 		 return categoriaService.findByNombre(nombre);
