@@ -231,5 +231,11 @@ public class CategoriaController {
 	 public Categoria getNombreExiste(@PathVariable String nombre) {
 		 return categoriaService.findByNombre(nombre);
 	 }
+	 
+	 //FILTRAR LISTA POR TERMINO
+	 @GetMapping("/filtrar/{termino}")
+	 public List<Categoria> getCategoriasByTermino(@PathVariable String termino){
+		 return categoriaService.findCategotriasByNombre(termino);
+	 }
 
 }

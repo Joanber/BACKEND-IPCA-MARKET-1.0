@@ -19,5 +19,8 @@ public interface CategoriaRepository extends JpaRepository<Categoria, Long>{
 	
 	@Query("select c from Categoria c order by nombre")
 	public Page<Categoria> findAll(Pageable pageable);
+	
+	@Query("select c from Categoria c where c.nombre like %?1%")
+	public List<Categoria> findCategotriasByNombre(String termino);
 
 }

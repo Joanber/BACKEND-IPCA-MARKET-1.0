@@ -58,4 +58,9 @@ public class CategoriaServiceImp implements CategoriaService{
 		return categoriaRepository.findAll(pageable);
 	}
 
+	@Override
+	public List<Categoria> findCategotriasByNombre(String termino) {
+		return categoriaRepository.findCategotriasByNombre(termino);
+	}
+
 }

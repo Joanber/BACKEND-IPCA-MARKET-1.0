@@ -24,5 +24,7 @@ public interface CategoriaService {
     public Categoria findByNombre(String nombre);
     
     public Page<Categoria> findAll(Pageable pageable);
+    
+    public List<Categoria> findCategotriasByNombre(String termino);
 
 }
