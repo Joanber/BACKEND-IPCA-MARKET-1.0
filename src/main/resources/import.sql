@@ -17,8 +17,8 @@ INSERT INTO productos(codigo_barras,nombre,descripcion,precio,cantidad_maxima,ca
 INSERT INTO productos(codigo_barras,nombre,descripcion,precio,cantidad_maxima,cantidad_minima,categoria_id) VALUES('123456782','PAPAS RUFFLES PICANTE 44 GR','PAPAS RUFFLES PICANTES DE 44 GRAMOS A 50 CENTAVOS',0.50,20,5,1);
 INSERT INTO productos(codigo_barras,nombre,descripcion,precio,cantidad_maxima,cantidad_minima,categoria_id) VALUES('123456783','GALLETA AMOR DE CHOCOLATE 100 GR','GALLETA AMOR PEQUEÑA DE 100 GR SABOR A CHOCOLATE A UN DOLAR',1.00,20,5,3);
 
-INSERT INTO usuarios(activo,username,password,persona_id) VALUES (true,'ipca','12345',1);
-INSERT INTO usuarios(activo,username,password,persona_id) VALUES (true,'andres','12345',2);
+INSERT INTO usuarios(activo,username,password,persona_id) VALUES (true,'ipca','$2a$10$33FTBUYA86fzgrnp8v3H.u9KKZ0yzQzZ.3mXFppIfwhfufxZmaQOO',1);
+INSERT INTO usuarios(activo,username,password,persona_id) VALUES (true,'andres','$2a$10$33FTBUYA86fzgrnp8v3H.u9KKZ0yzQzZ.3mXFppIfwhfufxZmaQOO',2);
 
 INSERT INTO usuarios_roles(usuario_id,rol_id) VALUES (2,1);
 INSERT INTO usuarios_roles(usuario_id,rol_id) VALUES (2,2);

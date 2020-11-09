@@ -24,6 +24,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -48,6 +49,7 @@ public class PersonaController {
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> create(@Valid @RequestBody Persona persona, BindingResult result) {
         Map<String, Object> response = new HashMap<>();
         Persona newPersona = null;
@@ -90,6 +92,7 @@ public class PersonaController {
     }
 
     @GetMapping("/")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public List<Persona> getPersonas() {
         return personaService.findAll();
     }

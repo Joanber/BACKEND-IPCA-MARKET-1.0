@@ -17,16 +17,23 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 	@Query("from Rol")
 	public List<Rol> findAllRoles();
 	
+	@Query("from Rol r where r.nombre=?1")
+	Rol findByNombre(String nombre);
+	
 	public List<Usuario> findAllByOrderByIdAsc();
 	
 	@Query("select u from Usuario u join fetch u.persona p where u.username like %?1% or p.nombre like %?1%")
 	public List<Usuario> findByUsernameOrNombrePersona(String termino);
 	
-	public Usuario findByUsername(String username);
 	
 	@Query("select u from Usuario u order by username")
 	public Page<Usuario> findAll(Pageable pageable);
 	
 	
+	//PARA EL LOGIN
+	Usuario findByUsername(String username);
+	
+	Boolean existsByUsername(String username);
+
 
 }
