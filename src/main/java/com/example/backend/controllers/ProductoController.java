@@ -86,22 +86,8 @@ public class ProductoController {
 	}
 	//SIRVE TAMBIEN PARA EL CODIGO DE BARRAS EXISTENTE
 	@GetMapping("/codigo/{codigo}")
-	public ResponseEntity<?> getByCodigoBarras(@PathVariable String codigo) {
-		Producto producto = null;
-		Map<String, Object> response = new HashMap<>();
-
-		try {
-			producto = productoService.findProductoByCodigoBarras(codigo);
-		} catch (DataAccessException e) {
-			response.put("mensaje", "Error  en la consulta de la base de datos");
-			response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-		if (producto == null) {
-			response.put("mensaje", "El producto con el codigo: ".concat(codigo.toString()).concat(" no existe en la base de datos"));
-			return new ResponseEntity<Map<String, Object>>(response, HttpStatus.NOT_FOUND);
-		}
-		return new ResponseEntity<Producto>(producto, HttpStatus.OK);
+	public Producto getByCodigoBarras(@PathVariable String codigo) {
+		return productoService.findProductoByCodigoBarras(codigo);
 	}
 
 	@GetMapping("/")
