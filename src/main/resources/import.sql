@@ -11,11 +11,11 @@ INSERT INTO categorias(nombre) VALUES ('PAPAS');
 INSERT INTO categorias(nombre) VALUES ('BEBIDAS');
 INSERT INTO categorias(nombre) VALUES ('GALLETAS');
 
-INSERT INTO productos(codigo_barras,nombre,descripcion,precio,cantidad_maxima,cantidad_minima,categoria_id) VALUES('123456789','COCA COLA 400ML','BEBIDA COCA COLA DE 400 MILILITROS A 50 CENTAVOS',0.50,20,5,2);
-INSERT INTO productos(codigo_barras,nombre,descripcion,precio,cantidad_maxima,cantidad_minima,categoria_id) VALUES('123456780','COLA FANTA 400ML','BEBIDA COLA FANTA DE 400 MILILITROS A 50 CENTAVOS',0.50,20,5,2);
-INSERT INTO productos(codigo_barras,nombre,descripcion,precio,cantidad_maxima,cantidad_minima,categoria_id) VALUES('123456781','PAPAS RUFFLES NATURAL 200 GR','PAPAS RUFFLES NATURALES DE 200 GRAMOS A 50 CENTAVOS',0.50,20,5,1);
-INSERT INTO productos(codigo_barras,nombre,descripcion,precio,cantidad_maxima,cantidad_minima,categoria_id) VALUES('123456782','PAPAS RUFFLES PICANTE 44 GR','PAPAS RUFFLES PICANTES DE 44 GRAMOS A 50 CENTAVOS',0.50,20,5,1);
-INSERT INTO productos(codigo_barras,nombre,descripcion,precio,cantidad_maxima,cantidad_minima,categoria_id) VALUES('123456783','GALLETA AMOR DE CHOCOLATE 100 GR','GALLETA AMOR PEQUEÑA DE 100 GR SABOR A CHOCOLATE A UN DOLAR',1.00,20,5,3);
+INSERT INTO productos(codigo_barras,nombre,descripcion,precio,cantidad_maxima,cantidad_minima,categoria_id) VALUES('1234567890','COCA COLA 400ML','BEBIDA COCA COLA DE 400 MILILITROS A 50 CENTAVOS',0.50,20,5,2);
+INSERT INTO productos(codigo_barras,nombre,descripcion,precio,cantidad_maxima,cantidad_minima,categoria_id) VALUES('1234567891','COLA FANTA 400ML','BEBIDA COLA FANTA DE 400 MILILITROS A 50 CENTAVOS',0.50,20,5,2);
+INSERT INTO productos(codigo_barras,nombre,descripcion,precio,cantidad_maxima,cantidad_minima,categoria_id) VALUES('1234567892','PAPAS RUFFLES NATURAL 200 GR','PAPAS RUFFLES NATURALES DE 200 GRAMOS A 50 CENTAVOS',0.50,20,5,1);
+INSERT INTO productos(codigo_barras,nombre,descripcion,precio,cantidad_maxima,cantidad_minima,categoria_id) VALUES('1234567893','PAPAS RUFFLES PICANTE 44 GR','PAPAS RUFFLES PICANTES DE 44 GRAMOS A 50 CENTAVOS',0.50,20,5,1);
+INSERT INTO productos(codigo_barras,nombre,descripcion,precio,cantidad_maxima,cantidad_minima,categoria_id) VALUES('1234567894','GALLETA AMOR DE CHOCOLATE 100 GR','GALLETA AMOR PEQUEÑA DE 100 GR SABOR A CHOCOLATE A UN DOLAR',1.00,20,5,3);
 
 INSERT INTO usuarios(activo,username,password,persona_id) VALUES (true,'ipca','$2a$10$33FTBUYA86fzgrnp8v3H.u9KKZ0yzQzZ.3mXFppIfwhfufxZmaQOO',1);
 INSERT INTO usuarios(activo,username,password,persona_id) VALUES (true,'andres','$2a$10$33FTBUYA86fzgrnp8v3H.u9KKZ0yzQzZ.3mXFppIfwhfufxZmaQOO',2);

@@ -42,8 +42,6 @@ public class FacturaController {
 	private FacturaService facturaService;
 	@Autowired
 	private ProductoService productoService;
-	
-	
 
 	@PostMapping("/")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -65,7 +63,6 @@ public class FacturaController {
 				pro.setCantidad_maxima(nuevaCantidadPro);
 				productoService.save(pro);	
 			}
-			
 			newFactura = facturaService.save(factura);
 			
 		} catch (DataAccessException e) {
