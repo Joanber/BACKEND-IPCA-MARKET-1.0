@@ -1,6 +1,6 @@
 package com.example.backend.pojos;
 
-
+import java.util.Date;
 
 public interface ProductosVentas {
 	
@@ -14,6 +14,6 @@ public interface ProductosVentas {
 
 	public String getNombre_categoria();
 	
-	
+	public Date  getFecha();
 	
 }

@@ -118,7 +118,6 @@ public class UsuarioController {
         }
         try {
             user.setUsername(usuario.getUsername());
-            user.setPassword(encoder.encode(usuario.getPassword()));
             user.setActivo(usuario.isActivo());
             user.setPersona(usuario.getPersona());
             user.setRoles(usuario.getRoles());   
