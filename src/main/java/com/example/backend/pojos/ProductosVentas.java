@@ -16,4 +16,6 @@ public interface ProductosVentas {
 	
 	public Date  getFecha();
 	
+	public String getDatos_persona();
+	
 }

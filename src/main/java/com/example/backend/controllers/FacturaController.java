@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -153,10 +154,17 @@ public class FacturaController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
 	}
     
-	//CONSULTA QUE TRAE LOS PRODUCTOS VENDIDOS CON LAS FECHAS DESDE HASTA
-	@GetMapping("/filtrar-ventasProducto/{fecha1}/{fecha2}")
-	public List<ProductosVentas> findProductoVentaByFechas(@PathVariable String fecha1, @PathVariable String fecha2) {
-		return facturaService.findProductoByFecha(fecha1, fecha2);
+	//CONSULTA QUE TRAE LOS PRODUCTOS VENDIDOS CON LAS FECHAS DESDE HASTA Y POR NOMBRE DE USUARIO
+	@GetMapping("/filtrar-ventasProducto")
+	public List<ProductosVentas> findProductoVentaByFechas(@RequestParam(required = true) String desde, @RequestParam(required = true) String hasta,@RequestParam(required = false) String user) {
+		List<ProductosVentas> proVent=null;
+		
+		if (user.isEmpty()) {
+			 proVent=facturaService.findProductoByFecha(desde, hasta);
+		}else {
+			proVent=facturaService.findProductosByFechaUsuario(desde, hasta, user);
+		}
+		return proVent;
 	}
 	//CONSULTA QUE TRAE LOS PRODUCTOS BAJOS EN INVENTARIO
 	@GetMapping("/filtrar-productos-bajos-inventario")

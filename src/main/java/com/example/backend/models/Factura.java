@@ -6,6 +6,8 @@
 package com.example.backend.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sun.istack.NotNull;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +20,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
@@ -50,6 +53,11 @@ public class Factura implements Serializable {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "factura_id")
     private List<DetalleFactura> detalles_facturas;
+    
+    @NotNull
+    @JsonIgnoreProperties(value={"facturas", "hibernateLazyInitializer", "handler"}, allowSetters=true)
+	@ManyToOne(fetch = FetchType.LAZY)
+    private Usuario usuario;
 
     public Factura() {
         detalles_facturas= new ArrayList<>();
@@ -92,6 +100,14 @@ public class Factura implements Serializable {
     public void setDetalles_facturas(List<DetalleFactura> detalles_facturas) {
         this.detalles_facturas = detalles_facturas;
     }
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
     
     
 

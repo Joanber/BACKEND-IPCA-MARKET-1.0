@@ -76,6 +76,26 @@ public class FacturaServiceImp implements FacturaService {
 		return facturaRepository.findProductosInventarioPorCategoria(categoria);
 	}
 
+	@Override
+	public List<ProductosVentas> findProductosByFechaUsuario(String desde, String hasta, String username) {
+		SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	    Date desdee = null;
+		try {
+			desdee = formater.parse(desde.concat(" 00:00:00"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    Date hastaa = null;
+		try {
+			hastaa = formater.parse(hasta.concat(" 23:59:59"));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return facturaRepository.findProductosByFechaUsuario(desdee, hastaa, username);
+	}
+
 
 	
 

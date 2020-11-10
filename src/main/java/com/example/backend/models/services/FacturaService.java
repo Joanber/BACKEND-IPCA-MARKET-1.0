@@ -1,5 +1,6 @@
 package com.example.backend.models.services;
 
+
 import java.util.List;
 
 import com.example.backend.models.Factura;
@@ -26,5 +27,7 @@ public interface FacturaService {
     public List<ProductosInventario> findProductosInventario();
     
     public List<ProductosInventario> findProductosInventarioPorCategoria(String categoria);
+    
+    public List<ProductosVentas> findProductosByFechaUsuario(String desde, String hasta, String username);
     
 }
