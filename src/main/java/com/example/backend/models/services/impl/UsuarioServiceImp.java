@@ -65,4 +65,10 @@ public class UsuarioServiceImp implements UsuarioService {
 		return usuarioRepository.findAll(pageable);
 	}
 
+	@Override
+	public void actulizarPassword(String password, Long id) {
+		usuarioRepository.actulizarPassword(password, id);
+		
+	}
+
 }

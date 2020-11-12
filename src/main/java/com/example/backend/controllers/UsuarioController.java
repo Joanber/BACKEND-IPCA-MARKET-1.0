@@ -164,7 +164,31 @@ public class UsuarioController {
     	return usuarioService.findAll(pageable);
     }
     
+   
     
+    @GetMapping("/truef/{id}/{passactual}")
+    public Boolean passwordCorrecta(@PathVariable Long id,@PathVariable String passactual) {
+    	boolean pass=false;
+    	Usuario user = usuarioService.findById(id);
+    	if (encoder.matches(passactual, user.getPassword())) {
+			pass=true;
+		}
+    	return pass;
+    }
+    
+    @PutMapping("/withpass/{password}/{id}")
+    public ResponseEntity<?> updateWithPassword(@PathVariable String password, @PathVariable Long id) {
+    	 Map<String, Object> response = new HashMap<>();
+         try {
+             usuarioService.actulizarPassword(encoder.encode(password), id);
+         } catch (DataAccessException e) {
+             response.put("mensaje", "Error al actualizar la contraseña en la base de datos");
+             response.put("error", e.getMessage().concat(": ").concat(e.getMostSpecificCause().getMessage()));
+             return new ResponseEntity<Map<String, Object>>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+         }
+         response.put("mensaje", "Contraseña actualizada con exito");
+         return new ResponseEntity<Map<String, Object>>(response, HttpStatus.OK);
+    }
 
 
 }

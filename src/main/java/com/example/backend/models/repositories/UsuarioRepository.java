@@ -2,9 +2,12 @@ package com.example.backend.models.repositories;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -34,6 +37,11 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 	Usuario findByUsername(String username);
 	
 	Boolean existsByUsername(String username);
+	
+	@Transactional()
+	@Modifying
+	@Query("update Usuario u set u.password = ?1 where u.id = ?2")
+	public void actulizarPassword(String password,Long id);
 
 
 }

@@ -27,5 +27,7 @@ public interface UsuarioService {
 	public Usuario findByUsername(String username);
 	
 	public Page<Usuario> findAll(Pageable pageable);
+	
+	public void actulizarPassword(String password,Long id);
 
 }
