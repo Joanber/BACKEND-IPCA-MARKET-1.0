@@ -95,6 +95,11 @@ public class ProductoController {
 		return productoService.findAll();
 	}
 	
+	@GetMapping("/movilapp")
+	public List<Producto> getProductosMovilApp() {
+		return productoService.findAll();
+	}
+	
 	@GetMapping("/filtrar/{termino}")
     public List<Producto> getProductos(@PathVariable String termino){
     	return productoService.findByNombreOrCodigoBarras(termino);

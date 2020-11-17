@@ -49,7 +49,7 @@ public class PersonaController {
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasAnyRole(['ROLE_ADMIN'])")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE')")
     public ResponseEntity<?> create(@Valid @RequestBody Persona persona, BindingResult result) {
         Map<String, Object> response = new HashMap<>();
         Persona newPersona = null;
@@ -73,6 +73,7 @@ public class PersonaController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
     public ResponseEntity<?> getById(@PathVariable Long id) {
         Persona persona = null;
         Map<String, Object> response = new HashMap<>();
@@ -92,23 +93,26 @@ public class PersonaController {
     }
 
     @GetMapping("/")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') OR hasRole('ROLE_ESTUDIANTE')")
     public List<Persona> getPersonas() {
         return personaService.findAll();
     }
     
     @GetMapping("/filtrar/{termino}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') OR hasRole('ROLE_ESTUDIANTE')")
     public List<Persona> getPersonas(@PathVariable String termino) {
         return personaService.findByNombreOrApellidoIgnoreCase(termino);
     }
     
     @GetMapping("/page/{page}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') OR hasRole('ROLE_ESTUDIANTE')")
     public Page<Persona> getPersonas(@PathVariable Integer page){
     	Pageable pageable = PageRequest.of(page, 5);
     	return personaService.findAll(pageable);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') OR hasRole('ROLE_ESTUDIANTE')")
     public ResponseEntity<?> update(@Valid @RequestBody Persona persona, BindingResult result, @PathVariable Long id) {
         Persona per = personaService.findById(id);
 
@@ -149,6 +153,7 @@ public class PersonaController {
     }
 
     @PutMapping("/editar-con-foto/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') OR hasRole('ROLE_ESTUDIANTE')")
     public ResponseEntity<?> updateconfoto(@Valid Persona persona, BindingResult result, @PathVariable Long id, @RequestParam MultipartFile archivo) {
         Persona per = personaService.findById(id);
 
@@ -196,6 +201,7 @@ public class PersonaController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') OR hasRole('ROLE_ESTUDIANTE')")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         Map<String, Object> response = new HashMap<>();
         try {
@@ -210,6 +216,7 @@ public class PersonaController {
     }
 
     @PostMapping("/crear-con-foto")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') OR hasRole('ROLE_ESTUDIANTE')")
     public ResponseEntity<?> createconfoto(@Valid Persona persona, BindingResult result, @RequestParam MultipartFile archivo) {
         Map<String, Object> response = new HashMap<>();
         Persona newPersona = null;
@@ -244,13 +251,14 @@ public class PersonaController {
     
     @GetMapping("/img/{id}")
     public ResponseEntity<?> verFoto(@PathVariable Long id){
+    	
         Persona persona = personaService.findById(id);
         
         if (persona==null || persona.getFoto()== null) {
             return ResponseEntity.notFound().build();
         }
         Resource imagen = new ByteArrayResource(persona.getFoto());
-        return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imagen);
+        return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(imagen);
     }
     
     @GetMapping("/existe-cedula-persona/{cedula}")

@@ -89,6 +89,11 @@ public class CategoriaController {
 	public List<Categoria> getCategorias() {
 		return categoriaService.findAll();
 	}
+	@GetMapping("/movilapp")
+	public List<Categoria> getCategoriasMovilApp() {
+		return categoriaService.findAll();
+	}
+
 
 	@PutMapping("/{id}")
 	public ResponseEntity<?> update(@Valid @RequestBody Categoria categoria, BindingResult result,

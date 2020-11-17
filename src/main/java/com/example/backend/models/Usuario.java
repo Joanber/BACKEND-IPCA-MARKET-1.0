@@ -22,6 +22,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
@@ -58,7 +59,10 @@ public class Usuario implements Serializable {
 	@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 	private Persona persona;
 	
-
+	@JsonIgnoreProperties(value={"usuario","hibernateLazyInitializer","handler"}, allowSetters=true)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario", cascade = CascadeType.ALL)
+	private List<Factura> facturas;
+	
 	public Usuario() {
 		this.roles=new ArrayList<>();
 	}
@@ -115,6 +119,14 @@ public class Usuario implements Serializable {
 		return roles;
 	}
 	
+
+	public List<Factura> getFacturas() {
+		return facturas;
+	}
+
+	public void setFacturas(List<Factura> facturas) {
+		this.facturas = facturas;
+	}
 
 	public void setRoles(List<Rol> roles) {
 		this.roles = roles;
