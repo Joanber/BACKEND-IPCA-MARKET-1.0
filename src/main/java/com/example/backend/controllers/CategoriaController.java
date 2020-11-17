@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -44,6 +45,7 @@ public class CategoriaController {
 
 	@PostMapping("/")
 	@ResponseStatus(HttpStatus.CREATED)
+	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
 	public ResponseEntity<?> create(@Valid @RequestBody Categoria categoria, BindingResult result) {
 		Map<String, Object> response = new HashMap<>();
 		Categoria newCategoria = null;
@@ -67,6 +69,7 @@ public class CategoriaController {
 	}
 
 	@GetMapping("/{id}")
+	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
 	public ResponseEntity<?> getById(@PathVariable Long id) {
 		Categoria categoria = null;
 		Map<String, Object> response = new HashMap<>();
@@ -86,6 +89,7 @@ public class CategoriaController {
 	}
 
 	@GetMapping("/")
+	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
 	public List<Categoria> getCategorias() {
 		return categoriaService.findAll();
 	}
@@ -96,6 +100,7 @@ public class CategoriaController {
 
 
 	@PutMapping("/{id}")
+	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
 	public ResponseEntity<?> update(@Valid @RequestBody Categoria categoria, BindingResult result,
 			@PathVariable Long id) {
 		Categoria cat = categoriaService.findById(id);
@@ -130,6 +135,7 @@ public class CategoriaController {
 	}
 
 	@DeleteMapping("/{id}")
+	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE')")
 	public ResponseEntity<?> delete(@PathVariable Long id) {
 		Map<String, Object> response = new HashMap<>();
 		try {
@@ -145,6 +151,7 @@ public class CategoriaController {
 	
 	@PostMapping("/crear-con-foto")
 	@ResponseStatus(HttpStatus.CREATED)
+	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
 	public ResponseEntity<?> createconfoto(@Valid  Categoria categoria, BindingResult result,@RequestParam MultipartFile archivo) {
 		Map<String, Object> response = new HashMap<>();
 		Categoria newCategoria = null;
@@ -175,6 +182,7 @@ public class CategoriaController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	@PutMapping("/editar-con-foto/{id}")
+	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
 	public ResponseEntity<?> updatecomfoto(@Valid Categoria categoria, BindingResult result,
 			@PathVariable Long id,@RequestParam MultipartFile archivo) {
 		Categoria cat = categoriaService.findById(id);
@@ -227,18 +235,21 @@ public class CategoriaController {
 	    }
 	 
 	 @GetMapping("/page/{page}")
+	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
 	 public Page<Categoria> getCategorias(@PathVariable Integer page){
 		 Pageable pageable = PageRequest.of(page, 5);
 		 return categoriaService.findAll(pageable);
 	 }
 	 //PARA UN NOMBRE DE CATEGORIA EXISTENTE
 	 @GetMapping("/existe-nombre-categoria/{nombre}")
+	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
 	 public Categoria getNombreExiste(@PathVariable String nombre) {
 		 return categoriaService.findByNombre(nombre);
 	 }
 	 
 	 //FILTRAR LISTA POR TERMINO
 	 @GetMapping("/filtrar/{termino}")
+	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
 	 public List<Categoria> getCategoriasByTermino(@PathVariable String termino){
 		 return categoriaService.findCategotriasByNombre(termino);
 	 }

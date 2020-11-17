@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -45,6 +46,7 @@ public class FacturaController {
 
 	@PostMapping("/")
 	@ResponseStatus(HttpStatus.CREATED)
+	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
 	public ResponseEntity<?> create(@Valid @RequestBody Factura factura, BindingResult result) {
 		Map<String, Object> response = new HashMap<>();
 		Factura newFactura = null;
@@ -76,6 +78,7 @@ public class FacturaController {
 	}
 	
 	@GetMapping("/{id}")
+	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE')")
 	public ResponseEntity<?> getById(@PathVariable Long id) {
 		Factura factura = null;
 		Map<String, Object> response = new HashMap<>();
@@ -95,16 +98,19 @@ public class FacturaController {
 	}
 
 	@GetMapping("/")
+	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
 	public List<Factura> getFacturas() {
 		return facturaService.findAll();
 	}
 
 	@GetMapping("/filtrar-producto/{codigo}")
+	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
 	public List<Producto> getByCodigoBarras(@PathVariable String codigo) {
 		return productoService.findByNombreOrCodigoBarras(codigo);
 	}
 
 	@PutMapping("/{id}")
+	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE')")
 	public ResponseEntity<?> update(@Valid @RequestBody Factura factura, BindingResult result, @PathVariable Long id) {
 		Factura user = facturaService.findById(id);
 
@@ -138,6 +144,7 @@ public class FacturaController {
 	}
 
 	@DeleteMapping("/{id}")
+	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE')")
 	public ResponseEntity<?> delete(@PathVariable Long id) {
 		Map<String, Object> response = new HashMap<>();
 		try {
@@ -153,6 +160,7 @@ public class FacturaController {
     
 	//CONSULTA QUE TRAE LOS PRODUCTOS VENDIDOS CON LAS FECHAS DESDE HASTA Y POR NOMBRE DE USUARIO
 	@GetMapping("/filtrar-ventasProducto")
+	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
 	public List<ProductosVentas> findProductoVentaByFechas(@RequestParam(required = true) String desde, @RequestParam(required = true) String hasta,@RequestParam(required = false) String user) {
 		List<ProductosVentas> proVent=null;
 		
@@ -165,18 +173,21 @@ public class FacturaController {
 	}
 	//CONSULTA QUE TRAE LOS PRODUCTOS BAJOS EN INVENTARIO
 	@GetMapping("/filtrar-productos-bajos-inventario")
+	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
 	public List<ProductosBajosInventario> findProductosBajosInvetario() {
 		return facturaService.findProductosBajosEnInventario();
 	}
 	
 	//CONSULTA QUE TRAE PRODUCTOS INVENTARIO
 	@GetMapping("/filtrar-productos-inventario")
+	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
 	public List<ProductosInventario> findProductosInvetario() {
 		return facturaService.findProductosInventario();
 	}
 	
 	//CONSULTA QUE TRAE PRODUCTOS INVENTARIO POR CATEGORIA
 	@GetMapping("/filtrar-productos-inventario-categoria/{categoria}")
+	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
 	public List<ProductosInventario> findProductosInventarioCategoria(@PathVariable String categoria) {
 		return facturaService.findProductosInventarioPorCategoria(categoria);
 	}

@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -43,6 +44,7 @@ public class UsuarioController {
 	PasswordEncoder encoder;
 	
 	@PostMapping("/")
+	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE')")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<?> create(@Valid @RequestBody Usuario usuario, BindingResult result) {
         Map<String, Object> response = new HashMap<>();
@@ -68,6 +70,7 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
     public ResponseEntity<?> getById(@PathVariable Long id) {
         Usuario usuario = null;
         Map<String, Object> response = new HashMap<>();
@@ -87,16 +90,19 @@ public class UsuarioController {
     }
 
     @GetMapping("/")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
     public List<Usuario> getUsuarios() {
         return usuarioService.findAll();
     }
     
     @GetMapping("/filtrar/{termino}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
     public List<Usuario> getUsuarios(@PathVariable String termino){
     	return usuarioService.findByUsernameOrNombrePersona(termino);
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE')")
     public ResponseEntity<?> update(@Valid @RequestBody Usuario usuario, BindingResult result, @PathVariable Long id) {
         Usuario user = usuarioService.findById(id);
 
@@ -135,6 +141,7 @@ public class UsuarioController {
 
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE')")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         Map<String, Object> response = new HashMap<>();
         try {
@@ -149,16 +156,19 @@ public class UsuarioController {
     }
 
     @GetMapping("/roles")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
     public List<Rol> getRoles() {
         return usuarioService.findAllRoles();
     }
     
     @GetMapping("/existe-username-usuario/{username}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE')")
     public Usuario getUsernameExiste(@PathVariable String username) {
     	return usuarioService.findByUsername(username);
     }
     
     @GetMapping("/page/{page}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
     public Page<Usuario> getUsuarios(@PathVariable Integer page){
     	Pageable pageable = PageRequest.of(page, 5);
     	return usuarioService.findAll(pageable);
@@ -167,6 +177,7 @@ public class UsuarioController {
    
     
     @GetMapping("/truef/{id}/{passactual}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE')")
     public Boolean passwordCorrecta(@PathVariable Long id,@PathVariable String passactual) {
     	boolean pass=false;
     	Usuario user = usuarioService.findById(id);
@@ -177,6 +188,7 @@ public class UsuarioController {
     }
     
     @PutMapping("/withpass/{password}/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE')")
     public ResponseEntity<?> updateWithPassword(@PathVariable String password, @PathVariable Long id) {
     	 Map<String, Object> response = new HashMap<>();
          try {

@@ -49,7 +49,7 @@ public class PersonaController {
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
     public ResponseEntity<?> create(@Valid @RequestBody Persona persona, BindingResult result) {
         Map<String, Object> response = new HashMap<>();
         Persona newPersona = null;
@@ -262,6 +262,7 @@ public class PersonaController {
     }
     
     @GetMapping("/existe-cedula-persona/{cedula}")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
     public Persona getCedulaExiste(@PathVariable String cedula) {
         return personaService.findByCedula(cedula);
     }

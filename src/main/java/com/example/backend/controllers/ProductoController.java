@@ -18,6 +18,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -44,6 +45,7 @@ public class ProductoController {
 
 	@PostMapping("/")
 	@ResponseStatus(HttpStatus.CREATED)
+	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
 	public ResponseEntity<?> create(@Valid @RequestBody Producto producto, BindingResult result) {
 		Map<String, Object> response = new HashMap<>();
 		Producto newProducto = null;
@@ -67,6 +69,7 @@ public class ProductoController {
 	}
 
 	@GetMapping("/{id}")
+	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE')")
 	public ResponseEntity<?> getById(@PathVariable Long id) {
 		Producto producto = null;
 		Map<String, Object> response = new HashMap<>();
@@ -86,11 +89,13 @@ public class ProductoController {
 	}
 	//SIRVE TAMBIEN PARA EL CODIGO DE BARRAS EXISTENTE
 	@GetMapping("/codigo/{codigo}")
+	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
 	public Producto getByCodigoBarras(@PathVariable String codigo) {
 		return productoService.findProductoByCodigoBarras(codigo);
 	}
 
 	@GetMapping("/")
+	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
 	public List<Producto> getProductos() {
 		return productoService.findAll();
 	}
@@ -101,6 +106,7 @@ public class ProductoController {
 	}
 	
 	@GetMapping("/filtrar/{termino}")
+	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
     public List<Producto> getProductos(@PathVariable String termino){
     	return productoService.findByNombreOrCodigoBarras(termino);
     }
@@ -112,6 +118,7 @@ public class ProductoController {
 	
 
 	@PutMapping("/{id}")
+	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE')")
 	public ResponseEntity<?> update(@Valid @RequestBody Producto producto, BindingResult result,
 			@PathVariable Long id) {
 		Producto pro = productoService.findById(id);
@@ -152,6 +159,7 @@ public class ProductoController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	@PutMapping("/codigo/{codigo}")
+	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
 	public ResponseEntity<?> updateCantidad(@Valid @RequestBody Producto producto, BindingResult result,
 			@PathVariable String codigo) {
 		Producto pro = productoService.findProductoByCodigoBarras(codigo);
@@ -191,6 +199,7 @@ public class ProductoController {
 	}
 
 	@PutMapping("/editar-con-foto/{id}")
+	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE')")
 	public ResponseEntity<?> updateconfoto(@Valid Producto producto, BindingResult result, @PathVariable Long id,
 			@RequestParam MultipartFile archivo) {
 		Producto pro = productoService.findById(id);
@@ -239,6 +248,7 @@ public class ProductoController {
 	}
 
 	@DeleteMapping("/{id}")
+	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE')")
 	public ResponseEntity<?> delete(@PathVariable Long id) {
 		Map<String, Object> response = new HashMap<>();
 		try {
@@ -253,6 +263,7 @@ public class ProductoController {
 	}
 
 	@PostMapping("/crear-con-foto")
+	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
 	public ResponseEntity<?> createconfoto(@Valid Producto producto, BindingResult result,
 			@RequestParam MultipartFile archivo) {
 		Map<String, Object> response = new HashMap<>();
@@ -298,6 +309,7 @@ public class ProductoController {
 	}
 	
 	@GetMapping("/page/{page}")
+	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
 	public Page<Producto> getProductos(@PathVariable Integer page){
 		Pageable pageable = PageRequest.of(page, 5);
 		return productoService.findAll(pageable);
