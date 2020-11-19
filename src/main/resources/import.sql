@@ -2,10 +2,9 @@ INSERT INTO roles(nombre) VALUES ('ROLE_ADMIN');
 INSERT INTO roles(nombre) VALUES ('ROLE_DOCENTE');
 INSERT INTO roles(nombre) VALUES ('ROLE_ESTUDIANTE');
 
-INSERT INTO personas(cedula,nombre,apellido,telefono,direccion,email,fecha) VALUES ('SN','IPCA','MARKET','4106861','AV ISABEL LA CATÓLICA , CUENCA','ipca_cuenca@hotmail.es','2000-01-03');
+INSERT INTO personas(cedula,nombre,apellido,telefono,direccion,email,fecha) VALUES ('1102774237','IPCA','MARKET','4106861','AV ISABEL LA CATÓLICA , CUENCA','ipca_cuenca@hotmail.es','2000-01-03');
 INSERT INTO personas(cedula,nombre,apellido,telefono,direccion,email,fecha) VALUES ('0106385065','ANDRES','BERMEO','0990613829','LAZARETO','pepeandy1998@gmail.com','1998-01-20');
-INSERT INTO personas(cedula,nombre,apellido,telefono,direccion,email,fecha) VALUES ('0000000000','PABL0 ','CHACON','SN','CIUDADELA KENEDY','SN','2018-01-03');
-INSERT INTO personas(cedula,nombre,apellido,telefono,direccion,email,fecha) VALUES ('0000000001','BYRON','ANCHUNDIA','SN','PLUTARCO Y EUCLIDES','SN','2018-01-03');
+
 			
 INSERT INTO categorias(nombre) VALUES ('PAPAS');
 INSERT INTO categorias(nombre) VALUES ('BEBIDAS');
