@@ -36,7 +36,7 @@ import com.example.backend.pojos.ProductosInventario;
 import com.example.backend.pojos.ProductosVentas;
 
 @RestController
-@CrossOrigin(origins = { "http://localhost:4200" })
+@CrossOrigin(origins ="*")
 @RequestMapping("/api/facturas")
 public class FacturaController {
 	@Autowired

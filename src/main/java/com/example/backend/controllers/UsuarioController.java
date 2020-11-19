@@ -34,7 +34,7 @@ import com.example.backend.models.Usuario;
 import com.example.backend.models.services.UsuarioService;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins ="*")
 @RequestMapping("/api/usuarios")
 public class UsuarioController {
 	@Autowired

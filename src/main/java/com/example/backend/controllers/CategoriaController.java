@@ -37,7 +37,7 @@ import com.example.backend.models.Categoria;
 import com.example.backend.models.services.CategoriaService;
 
 @RestController
-@CrossOrigin(origins = { "http://localhost:4200" })
+@CrossOrigin(origins ="*")
 @RequestMapping("/api/categorias")
 public class CategoriaController {
 	@Autowired
