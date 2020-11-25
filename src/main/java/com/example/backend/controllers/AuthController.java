@@ -28,7 +28,7 @@ import com.example.backend.security.payload.pojos.UserJwt;
 import com.example.backend.security.services.UserDetailsImpl;
 
 @RestController
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/auth")
 public class AuthController {
 	@Autowired

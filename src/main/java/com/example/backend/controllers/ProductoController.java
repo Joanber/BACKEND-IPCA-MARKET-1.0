@@ -37,7 +37,7 @@ import com.example.backend.models.Producto;
 import com.example.backend.models.services.ProductoService;
 
 @RestController
-@CrossOrigin(origins = { "http://localhost:4200" })
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/productos")
 public class ProductoController {
 	@Autowired
