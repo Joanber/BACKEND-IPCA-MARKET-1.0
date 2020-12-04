@@ -60,7 +60,7 @@ public class Usuario implements Serializable {
 	private Persona persona;
 	
 	@JsonIgnoreProperties(value={"usuario","hibernateLazyInitializer","handler"}, allowSetters=true)
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
 	private List<Factura> facturas;
 	
 	public Usuario() {
