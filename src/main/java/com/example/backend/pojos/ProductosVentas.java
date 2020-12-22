@@ -18,4 +18,6 @@ public interface ProductosVentas {
 	
 	public String getDatos_persona();
 	
+	public double getPrecio_compra();
+	
 }

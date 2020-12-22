@@ -44,6 +44,9 @@ public class Producto implements Serializable {
 
 	@Column(nullable = false,precision = 10, scale = 2 )
 	private Double precio;
+	
+	@Column(nullable = false,precision = 10, scale = 2 )
+	private Double precio_compra;
 
 	@Column(nullable = false,precision = 10, scale = 2 )
 	private Double cantidad_maxima;
@@ -96,10 +99,13 @@ public class Producto implements Serializable {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion.toUpperCase();
 	}
-
 	
-	
-	
+	public Double getPrecio_compra() {
+		return precio_compra;
+	}
+	public void setPrecio_compra(Double precio_compra) {
+		this.precio_compra = precio_compra;
+	}
 	public Double getPrecio() {
 		return precio;
 	}

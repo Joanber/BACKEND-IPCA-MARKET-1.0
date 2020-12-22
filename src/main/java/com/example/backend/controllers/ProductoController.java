@@ -146,6 +146,7 @@ public class ProductoController {
 			pro.setPrecio(producto.getPrecio());
 			pro.setCantidad_maxima(producto.getCantidad_maxima());
 			pro.setCantidad_minima(producto.getCantidad_minima());
+			pro.setPrecio_compra(producto.getPrecio_compra());
 			pro.setCategoria(producto.getCategoria());
 
 			productoUpdate = productoService.save(pro);
@@ -227,6 +228,7 @@ public class ProductoController {
 			pro.setPrecio(producto.getPrecio());
 			pro.setCantidad_maxima(producto.getCantidad_maxima());
 			pro.setCantidad_minima(producto.getCantidad_minima());
+			pro.setPrecio_compra(producto.getPrecio_compra());
 			pro.setCategoria(producto.getCategoria());
 			if (!archivo.isEmpty()) {
 				try {

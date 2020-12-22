@@ -15,7 +15,7 @@ import com.example.backend.pojos.ProductosVentas;
 @Repository
 public interface FacturaRepository extends JpaRepository<Factura, Long> {
 
-	@Query(value = "SELECT p.codigo_barras AS codigo_barras,p.nombre AS nombre,df.cantidad AS cantidad,p.precio AS precio ,c.nombre AS nombre_categoria,"
+	@Query(value = "SELECT p.codigo_barras AS codigo_barras,p.nombre AS nombre,df.cantidad AS cantidad,p.precio AS precio, p.precio_compra as precio_compra ,c.nombre AS nombre_categoria,"
 			+ " f.fecha, CONCAT(pe.cedula,' ',pe.nombre,' ',pe.apellido) as datos_persona from productos p INNER JOIN categorias c on p.categoria_id = c.id"
 			+ "	INNER JOIN detalles_facturas df on df.producto_id=p.id INNER JOIN facturas f"
 			+ "	on df.factura_id=f.id"
@@ -24,7 +24,7 @@ public interface FacturaRepository extends JpaRepository<Factura, Long> {
 	public List<ProductosVentas> findProductosByFecha(Date desde, Date hasta);
 
 	@Query(value = "SELECT p.codigo_barras AS codigo_barras,p.nombre AS nombre,df.cantidad AS cantidad,"
-			+ " p.precio AS precio ,c.nombre AS nombre_categoria, f.fecha,CONCAT(pe.cedula,' ',pe.nombre,' ',pe.apellido) as datos_persona"
+			+ " p.precio AS precio ,p.precio_compra as precio_compra,c.nombre AS nombre_categoria, f.fecha,CONCAT(pe.cedula,' ',pe.nombre,' ',pe.apellido) as datos_persona"
 			+ "	from productos p INNER JOIN categorias c on p.categoria_id = c.id"
 			+ "	INNER JOIN detalles_facturas df on df.producto_id=p.id INNER JOIN facturas f on df.factura_id=f.id"
 			+ "	INNER JOIN usuarios u on f.usuario_id=u.id INNER JOIN personas pe on u.persona_id=pe.id"
