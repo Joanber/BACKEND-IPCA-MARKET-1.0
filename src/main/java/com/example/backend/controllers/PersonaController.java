@@ -49,7 +49,7 @@ public class PersonaController {
 
     @PostMapping("/")
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
     public ResponseEntity<?> create(@Valid @RequestBody Persona persona, BindingResult result) {
         Map<String, Object> response = new HashMap<>();
         Persona newPersona = null;
@@ -73,7 +73,7 @@ public class PersonaController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
     public ResponseEntity<?> getById(@PathVariable Long id) {
         Persona persona = null;
         Map<String, Object> response = new HashMap<>();
@@ -93,26 +93,26 @@ public class PersonaController {
     }
 
     @GetMapping("/")
-    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') OR hasRole('ROLE_ESTUDIANTE')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
     public List<Persona> getPersonas() {
         return personaService.findAll();
     }
     
     @GetMapping("/filtrar/{termino}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') OR hasRole('ROLE_ESTUDIANTE')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
     public List<Persona> getPersonas(@PathVariable String termino) {
         return personaService.findByNombreOrApellidoIgnoreCase(termino);
     }
     
     @GetMapping("/page/{page}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') OR hasRole('ROLE_ESTUDIANTE')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
     public Page<Persona> getPersonas(@PathVariable Integer page){
     	Pageable pageable = PageRequest.of(page, 5);
     	return personaService.findAll(pageable);
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') OR hasRole('ROLE_ESTUDIANTE')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
     public ResponseEntity<?> update(@Valid @RequestBody Persona persona, BindingResult result, @PathVariable Long id) {
         Persona per = personaService.findById(id);
 
@@ -153,7 +153,7 @@ public class PersonaController {
     }
 
     @PutMapping("/editar-con-foto/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') OR hasRole('ROLE_ESTUDIANTE')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
     public ResponseEntity<?> updateconfoto(@Valid Persona persona, BindingResult result, @PathVariable Long id, @RequestParam MultipartFile archivo) {
         Persona per = personaService.findById(id);
 
@@ -201,7 +201,7 @@ public class PersonaController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') OR hasRole('ROLE_ESTUDIANTE')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> delete(@PathVariable Long id) {
         Map<String, Object> response = new HashMap<>();
         try {
@@ -216,7 +216,7 @@ public class PersonaController {
     }
 
     @PostMapping("/crear-con-foto")
-    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') OR hasRole('ROLE_ESTUDIANTE')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
     public ResponseEntity<?> createconfoto(@Valid Persona persona, BindingResult result, @RequestParam MultipartFile archivo) {
         Map<String, Object> response = new HashMap<>();
         Persona newPersona = null;
@@ -262,7 +262,7 @@ public class PersonaController {
     }
     
     @GetMapping("/existe-cedula-persona/{cedula}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
     public Persona getCedulaExiste(@PathVariable String cedula) {
         return personaService.findByCedula(cedula);
     }
