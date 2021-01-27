@@ -1,15 +1,10 @@
 INSERT INTO roles(nombre) VALUES ('ROLE_ADMIN');
-INSERT INTO roles(nombre) VALUES ('ROLE_DOCENTE');
-INSERT INTO roles(nombre) VALUES ('ROLE_ESTUDIANTE');
+INSERT INTO roles(nombre) VALUES ('ROLE_USER');
 
-INSERT INTO personas(cedula,nombre,apellido,telefono,direccion,email,fecha) VALUES ('1102754237','IPCA','MARKET','4106861','AV ISABEL LA CATÓLICA , CUENCA','ipca_cuenca@hotmail.es','2000-01-03');
-INSERT INTO personas(cedula,nombre,apellido,telefono,direccion,email,fecha) VALUES ('0106385065','ADMIN','ADMIN','0990613829','','pepeandy1998@gmail.com','1998-01-20');
+INSERT INTO personas(cedula,nombre,apellido,telefono,direccion,email,fecha) VALUES ('0106385065','ADMIN','ADMIN','4106861','AV ISABEL LA CATÓLICA , CUENCA','ipca_cuenca@hotmail.es','2000-01-03');
 
-INSERT INTO usuarios(activo,username,password,persona_id) VALUES (true,'ipca','$2a$10$AZjMeiDltJamehwcFrcIvubqnIZ7Y113CzTHEjVhjuYDuRLWN1aTO',1);
-INSERT INTO usuarios(activo,username,password,persona_id) VALUES (true,'admin','$2a$10$AZjMeiDltJamehwcFrcIvubqnIZ7Y113CzTHEjVhjuYDuRLWN1aTO',2);
+INSERT INTO usuarios(activo,username,password,persona_id) VALUES (true,'ADMIN','$2a$10$AZjMeiDltJamehwcFrcIvubqnIZ7Y113CzTHEjVhjuYDuRLWN1aTO',1);
 
-INSERT INTO usuarios_roles(usuario_id,rol_id) VALUES (2,1);
-INSERT INTO usuarios_roles(usuario_id,rol_id) VALUES (2,2);
 INSERT INTO usuarios_roles(usuario_id,rol_id) VALUES (1,1);
 			
 INSERT INTO categorias(nombre) VALUES ('SNACKS');
@@ -17,7 +12,6 @@ INSERT INTO categorias(nombre) VALUES ('BEBIDAS');
 INSERT INTO categorias(nombre) VALUES ('GALLETAS');
 INSERT INTO categorias(nombre) VALUES ('LÁCTEOS');
 INSERT INTO categorias(nombre) VALUES ('CHICLES');
-
 
 INSERT INTO productos(codigo_barras,nombre,descripcion,precio,precio_compra,cantidad_maxima,cantidad_minima,categoria_id) VALUES('1234567890','K-CHITOS ORIGINALES GRANDE 76 G','KACHITOS ORIGINALES GRANDE A 30 CENTAVOS',0.30,0.25,10,5,1);
 INSERT INTO productos(codigo_barras,nombre,descripcion,precio,precio_compra,cantidad_maxima,cantidad_minima,categoria_id) VALUES('1234567891','NACHOS DE QUESO PEQUEÑO 45 G','NACHOS DE QUESO PEQUEÑO A 55 CENTAVOS',0.55,0.50,10,5,1);

@@ -45,7 +45,7 @@ public class ProductoController {
 
 	@PostMapping("/")
 	@ResponseStatus(HttpStatus.CREATED)
-	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
 	public ResponseEntity<?> create(@Valid @RequestBody Producto producto, BindingResult result) {
 		Map<String, Object> response = new HashMap<>();
 		Producto newProducto = null;
@@ -69,7 +69,7 @@ public class ProductoController {
 	}
 
 	@GetMapping("/{id}")
-	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<?> getById(@PathVariable Long id) {
 		Producto producto = null;
 		Map<String, Object> response = new HashMap<>();
@@ -89,13 +89,13 @@ public class ProductoController {
 	}
 	//SIRVE TAMBIEN PARA EL CODIGO DE BARRAS EXISTENTE
 	@GetMapping("/codigo/{codigo}")
-	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
 	public Producto getByCodigoBarras(@PathVariable String codigo) {
 		return productoService.findProductoByCodigoBarras(codigo);
 	}
 
 	@GetMapping("/")
-	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
 	public List<Producto> getProductos() {
 		return productoService.findAll();
 	}
@@ -106,7 +106,7 @@ public class ProductoController {
 	}
 	
 	@GetMapping("/filtrar/{termino}")
-	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
     public List<Producto> getProductos(@PathVariable String termino){
     	return productoService.findByNombreOrCodigoBarras(termino);
     }
@@ -118,7 +118,7 @@ public class ProductoController {
 	
 
 	@PutMapping("/{id}")
-	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<?> update(@Valid @RequestBody Producto producto, BindingResult result,
 			@PathVariable Long id) {
 		Producto pro = productoService.findById(id);
@@ -160,7 +160,7 @@ public class ProductoController {
 		return new ResponseEntity<Map<String, Object>>(response, HttpStatus.CREATED);
 	}
 	@PutMapping("/codigo/{codigo}")
-	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
 	public ResponseEntity<?> updateCantidad(@Valid @RequestBody Producto producto, BindingResult result,
 			@PathVariable String codigo) {
 		Producto pro = productoService.findProductoByCodigoBarras(codigo);
@@ -200,7 +200,7 @@ public class ProductoController {
 	}
 
 	@PutMapping("/editar-con-foto/{id}")
-	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<?> updateconfoto(@Valid Producto producto, BindingResult result, @PathVariable Long id,
 			@RequestParam MultipartFile archivo) {
 		Producto pro = productoService.findById(id);
@@ -250,7 +250,7 @@ public class ProductoController {
 	}
 
 	@DeleteMapping("/{id}")
-	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE')")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public ResponseEntity<?> delete(@PathVariable Long id) {
 		Map<String, Object> response = new HashMap<>();
 		try {
@@ -265,7 +265,7 @@ public class ProductoController {
 	}
 
 	@PostMapping("/crear-con-foto")
-	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
 	public ResponseEntity<?> createconfoto(@Valid Producto producto, BindingResult result,
 			@RequestParam MultipartFile archivo) {
 		Map<String, Object> response = new HashMap<>();
@@ -311,7 +311,7 @@ public class ProductoController {
 	}
 	
 	@GetMapping("/page/{page}")
-	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_DOCENTE') or hasRole('ROLE_ESTUDIANTE')")
+	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
 	public Page<Producto> getProductos(@PathVariable Integer page){
 		Pageable pageable = PageRequest.of(page, 5);
 		return productoService.findAll(pageable);
