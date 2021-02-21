@@ -107,6 +107,18 @@ public class Factura implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+	
+	public Double getTotal() {
+		Double total =0.00;
+		for(DetalleFactura item:detalles_facturas) {
+			total += item.getTotal();
+		}
+		return total;
+	}
+	
+	public void remove(DetalleFactura detalle) {
+		this.detalles_facturas.remove(detalle);
+	}
     
     
 

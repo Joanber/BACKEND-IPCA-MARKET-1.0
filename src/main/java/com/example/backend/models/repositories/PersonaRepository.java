@@ -23,7 +23,7 @@ public interface PersonaRepository extends JpaRepository<Persona, Long> {
 	@Query("select a from Persona a where a.nombre like %?1% or a.apellido like %?1%")
 	public List<Persona> findByNombreOrApellidoIgnoreCase(String termino);
 	
-	@Query("select a from Persona a order by apellido")
+	@Query("select a from Persona a order by id desc")
 	public Page<Persona> findAll(Pageable pageable);
 	
 	public Persona findByCedula(String cedula);

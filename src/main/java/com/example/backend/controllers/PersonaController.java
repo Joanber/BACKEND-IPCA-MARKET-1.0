@@ -107,7 +107,7 @@ public class PersonaController {
     @GetMapping("/page/{page}")
     @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
     public Page<Persona> getPersonas(@PathVariable Integer page){
-    	Pageable pageable = PageRequest.of(page, 5);
+    	Pageable pageable = PageRequest.of(page, 10);
     	return personaService.findAll(pageable);
     }
 

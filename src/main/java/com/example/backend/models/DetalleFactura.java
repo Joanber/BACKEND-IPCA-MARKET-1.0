@@ -74,8 +74,6 @@ public class DetalleFactura implements Serializable {
         
     }
 
-   
-
     public Producto getProducto() {
         return producto;
     }

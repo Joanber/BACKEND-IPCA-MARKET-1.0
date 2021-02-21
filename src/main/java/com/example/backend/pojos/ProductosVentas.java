@@ -20,4 +20,6 @@ public interface ProductosVentas {
 	
 	public double getPrecio_compra();
 	
+	public Long getId();
+	
 }

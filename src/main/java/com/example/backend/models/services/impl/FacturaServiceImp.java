@@ -6,8 +6,11 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.example.backend.models.DetalleFactura;
 import com.example.backend.models.Factura;
 import com.example.backend.models.repositories.FacturaRepository;
 import com.example.backend.models.services.FacturaService;
@@ -48,14 +51,12 @@ public class FacturaServiceImp implements FacturaService {
 		try {
 			desdee = formater.parse(desde.concat(" 00:00:00"));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	    Date hastaa = null;
 		try {
 			hastaa = formater.parse(hasta.concat(" 23:59:59"));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return facturaRepository.findProductosByFecha(desdee, hastaa);
@@ -83,18 +84,52 @@ public class FacturaServiceImp implements FacturaService {
 		try {
 			desdee = formater.parse(desde.concat(" 00:00:00"));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	    Date hastaa = null;
 		try {
 			hastaa = formater.parse(hasta.concat(" 23:59:59"));
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return facturaRepository.findProductosByFechaUsuario(desdee, hastaa, username);
 	}
+
+	@Override
+	public Page<Factura> findAll(Pageable pageable) {
+		return facturaRepository.findAll(pageable);
+	}	
+
+	@Override
+	public Page<Factura> findByUsuarioUsernameAndFecha(Pageable pageable, String username, String fecha) {
+		SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
+	    Date fecha1 = null;
+		try {
+			fecha1 = formater.parse(fecha);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return facturaRepository.findByUsuarioUsernameAndFecha(pageable, username, fecha1) ;
+	}
+
+	@Override
+	public Page<Factura> findByFecha(Pageable pageable, String fecha) {
+		SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
+	    Date fecha1 = null;
+		try {
+			fecha1 = formater.parse(fecha);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return facturaRepository.findByFecha(pageable, fecha1);
+	}
+
+	@Override
+	public DetalleFactura findByIdDetalle(Long id) {
+		return facturaRepository.findByIdDetalle(id);
+	}
+
+	
 
 
 	

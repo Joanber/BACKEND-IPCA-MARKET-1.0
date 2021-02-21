@@ -313,7 +313,7 @@ public class ProductoController {
 	@GetMapping("/page/{page}")
 	@PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
 	public Page<Producto> getProductos(@PathVariable Integer page){
-		Pageable pageable = PageRequest.of(page, 5);
+		Pageable pageable = PageRequest.of(page, 10);
 		return productoService.findAll(pageable);
 	}
 	

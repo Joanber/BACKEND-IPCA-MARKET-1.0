@@ -237,7 +237,7 @@ public class CategoriaController {
 	 @GetMapping("/page/{page}")
 	 @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
 	 public Page<Categoria> getCategorias(@PathVariable Integer page){
-		 Pageable pageable = PageRequest.of(page, 5);
+		 Pageable pageable = PageRequest.of(page, 10);
 		 return categoriaService.findAll(pageable);
 	 }
 	 //PARA UN NOMBRE DE CATEGORIA EXISTENTE

@@ -170,7 +170,7 @@ public class UsuarioController {
     @GetMapping("/page/{page}")
     @PreAuthorize("hasRole('ROLE_ADMIN') OR hasRole('ROLE_USER')")
     public Page<Usuario> getUsuarios(@PathVariable Integer page){
-    	Pageable pageable = PageRequest.of(page, 5);
+    	Pageable pageable = PageRequest.of(page, 10);
     	return usuarioService.findAll(pageable);
     }
     

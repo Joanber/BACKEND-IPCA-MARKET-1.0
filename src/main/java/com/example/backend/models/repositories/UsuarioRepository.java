@@ -29,7 +29,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 	public List<Usuario> findByUsernameOrNombrePersona(String termino);
 	
 	
-	@Query("select u from Usuario u order by username")
+	@Query("select u from Usuario u order by id desc")
 	public Page<Usuario> findAll(Pageable pageable);
 	
 	
