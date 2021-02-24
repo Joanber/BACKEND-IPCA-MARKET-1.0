@@ -20,7 +20,7 @@ public class ProductoServiceImp implements ProductoService {
 
 	@Override
 	public List<Producto> findAll() {
-		return productoRepository.findAllByOrderByIdAsc();
+		return productoRepository.findAllByOrderByIdDesc();
 	}
 
 	@Override
@@ -39,8 +39,8 @@ public class ProductoServiceImp implements ProductoService {
 	}
 
 	@Override
-	public List<Producto> findAllByOrderByIdAsc() {
-		return productoRepository.findAllByOrderByIdAsc();
+	public List<Producto> findAllByOrderByIdDesc() {
+		return productoRepository.findAllByOrderByIdDesc();
 	}
 
 	@Override

@@ -19,7 +19,7 @@ public interface CategoriaService {
     
     public Categoria findById(Long id);
     
-    public List<Categoria> findAllByOrderByIdAsc();
+    public List<Categoria> findAllByOrderByIdDesc();
     
     public Categoria findByNombre(String nombre);
     

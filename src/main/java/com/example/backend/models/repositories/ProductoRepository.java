@@ -16,7 +16,7 @@ import com.example.backend.models.Producto;
 @Repository
 public interface ProductoRepository extends JpaRepository<Producto, Long> {
 	
-	public List<Producto> findAllByOrderByIdAsc();
+	public List<Producto> findAllByOrderByIdDesc();
 	
 	@Query("select p from Producto p join fetch p.categoria c where c.nombre=?1 order by p.id")
 	public List<Producto> findProductoByCategoriaNombre(String nombre);

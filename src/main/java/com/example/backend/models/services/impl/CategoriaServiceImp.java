@@ -21,7 +21,7 @@ public class CategoriaServiceImp implements CategoriaService{
     @Override
     @Transactional(readOnly = true)
     public List<Categoria> findAll() {
-        return categoriaRepository.findAllByOrderByIdAsc();
+        return categoriaRepository.findAllByOrderByIdDesc();
     }
 
     @Override
@@ -44,8 +44,8 @@ public class CategoriaServiceImp implements CategoriaService{
 
 	@Override
 	@Transactional(readOnly = true)
-	public List<Categoria> findAllByOrderByIdAsc() {
-		return categoriaRepository.findAllByOrderByIdAsc();
+	public List<Categoria> findAllByOrderByIdDesc() {
+		return categoriaRepository.findAllByOrderByIdDesc();
 	}
 
 	@Override

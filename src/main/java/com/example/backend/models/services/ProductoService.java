@@ -17,7 +17,7 @@ public interface ProductoService {
 
 	public Producto findById(Long id);
 	
-	public List<Producto> findAllByOrderByIdAsc();
+	public List<Producto> findAllByOrderByIdDesc();
 	
 	public List<Producto> findProductoByCategoriaNombre(String nombre);
 	
